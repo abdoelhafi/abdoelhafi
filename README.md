@@ -1,7 +1,6 @@
 - 👋 Hi, I’m @abdoelhafi
-- 👀 I’m interested in web development
-- 🌱 I’m currently learning Solidity and Blockchain developement.
-- 💞️ I’m looking to collaborate on any project related to the previous.
+- 👀 I’m interested in Cloud and AI
+- 🌱 I am ready to collaborate.
 - 📫 How to reach me : elhafiabdessamad1@gmail.com
 
 <!---
