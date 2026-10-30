@@ -1,0 +1,15 @@
+{
+  "name": "hifz-companion",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Calm, silent-first Quran memorization (Warsh an Nafi). Phase 1: verified data only.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\"",
+    "ingest": "node scripts/ingest.mjs",
+    "crosscheck": "node scripts/crosscheck.mjs"
+  }
+}

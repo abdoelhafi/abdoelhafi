@@ -1,0 +1,36 @@
+{
+  "primary": {
+    "description": "KFGQPC Warsh an Nafi Uthmanic text, v2.1 (6,214 ayahs, Madinan count of Nafi)",
+    "repository": "https://github.com/radouane-saddiki/Quran",
+    "commit": "c1509a665c5ee24835cb73b6376692aba540d024",
+    "textFile": "data/warsh_kfgqpc_v2-1.json",
+    "textSha256": "c6017e688cc599d88f6fdb1a19cafc9c51d024b3530955f1a878f17d26b9bcbc",
+    "surahIndexFile": "data/suras_warsh.json",
+    "license": "UNCONFIRMED: the repository carries no license for the KFGQPC text. See README, open questions.",
+    "knownIssues": {
+      "missingMarkSeparator": {
+        "refs": [
+          "16:123"
+        ],
+        "note": "The ayah-number mark follows the last word with no no-break space. The text is left as published; the KFGQPC v10 changelog lists this exact spot as fixed. The mark itself is correct for the ayah."
+      }
+    }
+  },
+  "crossCheck": {
+    "description": "KFGQPC Warsh Uthmanic data v10 (2021-08-05), independent republication",
+    "repository": "https://github.com/thetruetruth/quran-data-kfgqpc",
+    "commit": "281dbbe8eed1370daa5a023b6cd81655cbfd6473",
+    "textFile": "warsh/data/warshData_v10.json",
+    "textSha256": "f05d0dc652fd46b38563cacb13242f76f80db4cc64d25873da0bce157253872f"
+  },
+  "font": {
+    "description": "KFGQPC Uthmanic Warsh font v10, the font the v2.1 text targets (its ayah-number glyphs U+FC00.. only render in it)",
+    "repository": "https://github.com/thetruetruth/quran-data-kfgqpc",
+    "commit": "281dbbe8eed1370daa5a023b6cd81655cbfd6473",
+    "files": {
+      "warsh.10.ttf": "e6347a1b4cf0ca32e9cb187a7db8c9ecee0d5e384269ca6a943373a34ff747fb",
+      "warsh.10.woff2": "d6e21b46de4bc42dae9218749830cb4cb54ff815e67c66002001219a175b71d7"
+    },
+    "note": "warsh.10.woff2 is byte-identical in both repositories."
+  }
+}
