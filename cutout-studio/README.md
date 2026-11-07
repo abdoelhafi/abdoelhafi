@@ -36,7 +36,7 @@ With no keys at all, the app runs on offline fixtures: the 18 researched story-b
 |---|---|
 | `LLM_PROVIDER` | `auto` (Claude if its key is set, else Gemini, else mock), `gemini`, `claude` or `mock` |
 | `GEMINI_API_KEY` | LLM steps (when Gemini is the provider) and in-app image generation |
-| `GEMINI_MODEL`, `GEMINI_IMAGE_MODEL` | defaults `gemini-2.5-pro`, `gemini-2.5-flash-image` |
+| `GEMINI_MODEL`, `GEMINI_IMAGE_MODEL` | defaults `gemini-pro-latest`, `gemini-3.1-flash-image` |
 | `ANTHROPIC_API_KEY`, `CLAUDE_MODEL` | Claude for the LLM steps (default `claude-opus-5-5`, with web search for fact-checking) |
 | `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID` | narration (default voice: George) |
 

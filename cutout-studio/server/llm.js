@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import Anthropic from '@anthropic-ai/sdk';
 import { GoogleGenAI } from '@google/genai';
-import { config, activeProvider } from './config.js';
+import { config, activeProvider, geminiError } from './config.js';
 import * as mock from './mock.js';
 
 let anthropic, gemini;
@@ -88,7 +88,7 @@ async function geminiText({ system, prompt, webSearch, images = [] }) {
       // Google Search grounding can't be combined with JSON mode, so search runs return fenced JSON we parse.
       ...(webSearch ? { tools: [{ googleSearch: {} }] } : { responseMimeType: 'application/json' }),
     },
-  });
+  }).catch((e) => { throw geminiError(e); });
   const t = res.text;
   if (!t) throw new Error(`Gemini returned no text (finish reason: ${res.candidates?.[0]?.finishReason || 'unknown'})`);
   return t;

@@ -1,7 +1,7 @@
 // Optional: generate the images with the Gemini API instead of pasting prompts into the Gemini app.
 import fs from 'node:fs';
 import { GoogleGenAI } from '@google/genai';
-import { config } from './config.js';
+import { config, geminiError } from './config.js';
 
 let client;
 const ai = () => (client ??= new GoogleGenAI({ apiKey: config.geminiKey }));
@@ -22,7 +22,7 @@ export async function generateImage(prompt, refs = [], aspectRatio) {
     model: config.geminiImageModel,
     contents: [{ role: 'user', parts }],
     config: { responseModalities: ['IMAGE', 'TEXT'], ...(aspectRatio ? { imageConfig: { aspectRatio } } : {}) },
-  });
+  }).catch((e) => { throw geminiError(e); });
   const out = res.candidates?.[0]?.content?.parts || [];
   const img = out.find((p) => p.inlineData?.data);
   const text = out.filter((p) => p.text).map((p) => p.text).join(' ');
