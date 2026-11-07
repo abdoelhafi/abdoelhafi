@@ -15,6 +15,8 @@ import { wordsFromAlignment, resolveTimeline, lintTimeline } from './timeline.js
 import { stills, startRender, renderStatus } from './render.js';
 import * as github from './github.js';
 import { exportProject, importProject } from './transfer.js';
+import { restoreAll, cloudStatus, scheduleSync } from './cloud.js';
+import { run } from './proc.js';
 
 const app = express();
 app.get('/healthz', (req, res) => res.send('ok')); // health check for hosts, before the password
@@ -53,7 +55,7 @@ const fileUrl = (id, ...p) => `/api/projects/${id}/files/${p.map(encodeURICompon
 
 // ------------------------------------------------------------------ status + settings
 app.get('/api/status', h(async (req, res) => {
-  res.json({ ...providerInfo(), python: config.python, settings: getSettings(), github: github.githubStatus(), lowMemory: process.env.LOW_MEMORY === '1' });
+  res.json({ ...providerInfo(), python: config.python, settings: getSettings(), github: github.githubStatus(), cloud: cloudStatus(), lowMemory: process.env.LOW_MEMORY === '1' });
 }));
 app.get('/api/settings', (req, res) => res.json(getSettings()));
 app.put('/api/settings', (req, res) => res.json(saveSettings(req.body)));
@@ -504,6 +506,13 @@ function bad(msg) { const e = new Error(msg); e.status = 400; return e; }
 function findAsset(p, id) { const a = p.assets.find((x) => x.id === id); if (!a) throw bad(`Asset "${id}" not found`); return a; }
 const clamp = (n, a, b) => Math.max(a, Math.min(b, Number(n) || a));
 const mimeOf = (f) => (/\.jpe?g$/i.test(f) ? 'image/jpeg' : /\.webp$/i.test(f) ? 'image/webp' : 'image/png');
+
+// Restore projects from Supabase (if set up), add the Rolodex demo to an empty setup, then start.
+await restoreAll();
+if (store.listProjects().length === 0) {
+  await run(process.execPath, [path.join(ROOT, 'scripts/seed-demo.js')]).catch((e) => console.error('demo seed:', e.message));
+  for (const p of store.listProjects()) scheduleSync(p.id);
+}
 
 app.listen(config.port, () => {
   const i = providerInfo();

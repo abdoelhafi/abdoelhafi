@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { DATA_DIR } from './config.js';
+import { scheduleSync, deleteProject } from './cloud.js';
 
 const PROJECTS = path.join(DATA_DIR, 'projects');
 fs.mkdirSync(PROJECTS, { recursive: true });
@@ -45,6 +46,7 @@ export function save(p) {
   const f = projectDir(p.id, 'project.json');
   fs.writeFileSync(f + '.tmp', JSON.stringify(p, null, 2));
   fs.renameSync(f + '.tmp', f);
+  scheduleSync(p.id); // mirror to Supabase when cloud save is on
   return p;
 }
 
@@ -56,6 +58,7 @@ export function update(id, fn) {
 
 export function remove(id) {
   fs.rmSync(projectDir(id), { recursive: true, force: true });
+  deleteProject(id);
 }
 
 export function slug(s) {

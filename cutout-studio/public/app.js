@@ -55,7 +55,8 @@ function renderStatus() {
   const d = (on) => `<span class="dot ${on ? 'on' : 'off'}"></span>`;
   $('#status').innerHTML = `<div>LLM: <b>${esc(s.provider)}</b> · ${esc(s.model)}</div>
     <div>${d(s.geminiImageReady)}Gemini images ${s.geminiImageReady ? 'API on' : 'manual'}</div>
-    <div>${d(s.elevenReady)}ElevenLabs key ${s.elevenReady ? 'set' : 'not set'}</div>`;
+    <div>${d(s.elevenReady)}ElevenLabs key ${s.elevenReady ? 'set' : 'not set'}</div>
+    <div>${d(s.cloud?.enabled && !s.cloud?.lastError)}${s.cloud?.enabled ? (s.cloud.lastError ? 'Supabase save failing' : 'Saved to Supabase') : 'Not saved to the cloud (export to keep work)'}</div>`;
 }
 
 async function refreshProjects() {

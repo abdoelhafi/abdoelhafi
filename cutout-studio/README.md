@@ -86,9 +86,19 @@ One-time setup:
 | `GITHUB_REF` | the repository's default branch (where the workflow file lives) |
 | `GITHUB_APP_REF` | `ccr-18ed63bb-3wocck` (the app code the runner uses) |
 
+## Save projects in Supabase (survives restarts)
+
+Free hosts wipe their disk on every restart. With Supabase set up, the app saves every change to a private Supabase Storage bucket a few seconds after it happens, and restores all projects when it starts on an empty disk. No SQL setup: the bucket is created automatically.
+
+1. Create a free project at https://supabase.com.
+2. Under **Project Settings → API Keys**, copy the **secret key** (`sb_secret_…`; the legacy `service_role` key also works). The project URL is `https://<project-id>.supabase.co`.
+3. On the app's host, set `SUPABASE_URL` and `SUPABASE_SECRET_KEY`.
+
+What is saved: each project's data, uploads, cut pieces and voice, plus the newest render of each project (older renders stay only on the server, to fit the free 1 GB). Deleting a project deletes it from Supabase too. A free Supabase project pauses after a week without use; restore it from the Supabase dashboard and nothing is lost. The sidebar shows "Saved to Supabase" when it is on.
+
 ## Export and import
 
-Free hosts wipe their disk on every restart (Render's free plan: after about 15 minutes without visitors, and on every deploy). **Export** (next to the project title) downloads the whole project as one `.cutout.tgz` file: ideas, script, uploads and pieces, voice, timeline, and your brand settings. Renders are left out to keep the file small, so download MP4s separately; add `?renders=1` to the export link to include them. **Import a video…** in the sidebar brings it back, on the same server after a restart or on another one. Brand settings are restored only if the server has none yet.
+Free hosts wipe their disk on every restart (Render's free plan: after about 15 minutes without visitors, and on every deploy); Supabase saving (above) handles that automatically. As a manual backup, **Export** (next to the project title) downloads the whole project as one `.cutout.tgz` file: ideas, script, uploads and pieces, voice, timeline, and your brand settings. Renders are left out to keep the file small, so download MP4s separately; add `?renders=1` to the export link to include them. **Import a video…** in the sidebar brings it back, on the same server after a restart or on another one. Brand settings are restored only if the server has none yet.
 
 ## How it fits together
 

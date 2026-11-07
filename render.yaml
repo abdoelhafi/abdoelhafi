@@ -23,6 +23,14 @@ services:
         sync: false
       - key: ANTHROPIC_API_KEY
         sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SECRET_KEY
+        sync: false
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: RENDER_SHARED_SECRET
+        sync: false
       - key: LLM_PROVIDER
         value: auto
       - key: GEMINI_MODEL

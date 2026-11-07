@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { DATA_DIR } from './config.js';
+import { saveSettingsFile } from './cloud.js';
 
 const FILE = path.join(DATA_DIR, 'settings.json');
 
@@ -44,5 +45,6 @@ export function getSettings() {
 export function saveSettings(s) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
   fs.writeFileSync(FILE, JSON.stringify(s, null, 2));
+  saveSettingsFile(FILE);
   return getSettings();
 }

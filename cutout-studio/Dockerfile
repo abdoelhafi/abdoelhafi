@@ -18,5 +18,5 @@ COPY . .
 ENV NODE_ENV=production PORT=10000 DATA_DIR=/data PYTHON=python3
 RUN mkdir -p /data
 EXPOSE 10000
-# create the Rolodex demo project on first start, then run the server
-CMD ["sh", "-c", "[ -d /data/projects ] && [ \"$(ls -A /data/projects 2>/dev/null)\" ] || node scripts/seed-demo.js; node server/index.js"]
+# the server restores projects from Supabase (if set) and adds the Rolodex demo to an empty setup
+CMD ["node", "server/index.js"]

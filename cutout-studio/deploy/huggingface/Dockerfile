@@ -19,4 +19,4 @@ RUN npm ci --omit=dev
 ENV NODE_ENV=production PORT=7860 DATA_DIR=/data PYTHON=python3 HOME=/tmp
 RUN mkdir -p /data && chmod -R 777 /data /app
 EXPOSE 7860
-CMD ["sh", "-c", "[ \"$(ls -A /data/projects 2>/dev/null)\" ] || node scripts/seed-demo.js; node server/index.js"]
+CMD ["node", "server/index.js"]
