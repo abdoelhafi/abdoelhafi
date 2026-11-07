@@ -1,0 +1,43 @@
+{
+  "title": "The desk gadget that was worth more than a salary",
+  "hookText": "The most powerful object\non a 1980s desk",
+  "caption": "The Rolodex was the 1980s' most powerful office object. Here's what it really held.",
+  "hashtags": ["#history", "#business", "#networking", "#1980s"],
+  "lines": [
+    { "tag": "Intrigued, low, documentary narrator", "text": "In the 1980s... the most powerful object on a desk wasn't the phone." },
+    { "tag": "Reveal, a little smile", "text": "It was this. The Rolodex. A little wheel of business cards." },
+    { "tag": "Calm, storytelling", "text": "It was invented in 1956 as a simple office tool. Cards on a wheel, A to Z... so a secretary could find a number fast." },
+    { "tag": "Playful, building", "text": "Then Hollywood put one on the desk of every powerful character. And people believed it: a fat Rolodex meant you knew everyone." },
+    { "tag": "Warm, emphatic", "text": "Because every card was a person. A client. A favour. A deal waiting to happen. Your Rolodex was your network. And your network... was your value." },
+    { "tag": "Slower, a touch of loss", "text": "Then the cards moved into phones. The numbers survived. But the story behind each one... where you met, what they needed... mostly got lost." },
+    { "tag": "Knowing, conversational", "text": "Today, you meet more people than ever. And by Friday... you've forgotten who half of them were." },
+    { "tag": "Quiet, satisfying close", "text": "The Rolodex never died. It just needed somewhere to remember." }
+  ],
+  "punchWords": [
+    { "text": "ROLODEX", "cue": "The Rolodex" },
+    { "text": "1956", "cue": "1956" }
+  ],
+  "scenes": [
+    { "id": "s1-hook", "cue": "In the 1980s", "picture": "Close-up: two hands fight over a Rolodex in a tug of war while cards fly out. Hook text on screen.", "assets": ["hand_l", "hand_r", "rolodex", "card"], "background": "spotlight", "motion": "tug of war, cards bursting out, clack at the end" },
+    { "id": "s2-reveal", "cue": "It was this", "picture": "Camera pulls back from the Rolodex to reveal a 1980s executive behind a huge desk, sunset skyline behind him.", "assets": ["exec", "desk", "lamp", "phone_old", "rolodex"], "background": "window-city", "motion": "zoom-in-then-pull-back reveal; rays behind the Rolodex; ROLODEX strip pops" },
+    { "id": "s3-1956", "cue": "It was invented", "picture": "1956 office: a secretary next to a Rolodex on a small desk; a card flips A to Z.", "assets": ["secretary", "desk", "rolodex"], "background": "office", "motion": "1956 stamp slams in; A-Z card flip" },
+    { "id": "s4-hollywood", "cue": "Then Hollywood", "picture": "A stage with curtains; a film reel spins; a TV shows a powerful man whose Rolodex grows bigger.", "assets": ["reel", "tv", "exec", "rolodex"], "background": "stage", "motion": "TV rises, mini Rolodex grows with rays and sparkles" },
+    { "id": "s5-network", "cue": "Because every card", "picture": "Cards fly out of the Rolodex and become six little people connected by strings; then wind blows them away and a phone rises; paper notes fly away.", "assets": ["rolodex", "card", "p0", "p1", "p2", "p3", "p4", "p5", "phone"], "background": "radial", "motion": "cards turn into people; strings; wind; phone rises; notes blow away" },
+    { "id": "s7-today", "cue": "Today", "picture": "Trade-show hall; a confused young visitor; question marks pop.", "assets": ["visitor"], "background": "expo", "motion": "visitor slides in, sways; ? tiles pop on 'forgotten'" },
+    { "id": "s8-close", "cue": "The Rolodex never", "picture": "A business card is scanned into a phone and becomes a contact with a note 'Met at GITEX'. Small logo.", "assets": ["card", "phone"], "background": "radial", "motion": "scan beam, note chip pops, logo fades in" }
+  ],
+  "assets": [
+    { "id": "hand_l", "kind": "object", "description": "a man's hand and forearm in a navy suit sleeve reaching to grab, from the left" },
+    { "id": "hand_r", "kind": "object", "description": "a man's hand and forearm in a grey suit sleeve reaching to grab, from the right" },
+    { "id": "rolodex", "kind": "object", "description": "a classic black rotary card file with a round metal wheel and many white index cards fanned around it, side view, no brand name" },
+    { "id": "card", "kind": "object", "description": "a single white business card, front view, blank, slightly bent" },
+    { "id": "exec", "kind": "character", "description": "a confident 1980s businessman in his 40s, big-shouldered grey double-breasted suit, wide red tie, slicked-back dark hair, gold watch, sitting upright" },
+    { "id": "secretary", "kind": "character", "description": "a 1950s office secretary in her 20s, navy pencil skirt, white blouse, short curled hair, cat-eye glasses, standing and holding a small stack of index cards" },
+    { "id": "visitor", "kind": "character", "description": "a young professional in their late 20s, modern smart-casual blazer, conference lanyard, holding a messy stack of business cards, puzzled expression" },
+    { "id": "people", "kind": "objects", "description": "six small separate figures in a row, not touching: a banker in a pinstripe suit, a woman buyer with a clipboard, a journalist with a notepad, a lawyer with a briefcase, a factory owner in a hard hat, a hotel manager in a blazer", "pieceNames": ["p0", "p1", "p2", "p3", "p4", "p5"] },
+    { "id": "office_set", "kind": "objects", "description": "a big 1980s wooden executive desk front view, a desk lamp, and a corded beige phone, separate objects, not touching", "pieceNames": ["desk", "lamp", "phone_old"] },
+    { "id": "showbiz", "kind": "objects", "description": "a vintage film reel and a boxy 1980s TV set, separate objects, not touching", "pieceNames": ["reel", "tv"] },
+    { "id": "phone", "kind": "object", "description": "a modern smartphone, front view, blank white screen" }
+  ],
+  "factNotes": "Invented in 1956; the inventor is disputed, so the script names no one. Sources: Wikipedia (Rolodex); Cooper Hewitt, 'The power of the Rolodex' (2014)."
+}

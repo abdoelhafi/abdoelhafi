@@ -1,0 +1,112 @@
+{
+  "duration": 56.6,
+  "scenes": [
+    {
+      "id": "s1-hook",
+      "start": 0,
+      "background": { "preset": "spotlight" },
+      "camera": [{ "at": 4.75, "shake": 10 }],
+      "elements": [
+        { "id": "rolo", "piece": "rolodex", "x": 540, "y": 1000, "w": 640, "enter": { "type": "grow", "at": 0, "duration": 0.3 }, "loop": { "type": "tug", "amount": 70, "period": 0.44 }, "actions": [{ "type": "shake", "at": 4.75, "amount": 18 }] },
+        { "id": "cards", "effect": "burst", "piece": "card", "x": 540, "y": 950, "times": [1.0, 2.0, 3.1], "count": 4, "size": 150 },
+        { "id": "handL", "piece": "hand_l", "x": -110, "y": 1010, "w": 760, "enter": { "type": "slide-left", "at": 0, "duration": 0.35 }, "loop": { "type": "tug", "amount": 70, "period": 0.44 } },
+        { "id": "handR", "piece": "hand_r", "x": 1150, "y": 1012, "w": 735, "enter": { "type": "slide-right", "at": 0, "duration": 0.35 }, "loop": { "type": "tug", "amount": 70, "period": 0.44 } },
+        { "id": "hook", "text": "The most powerful object\non a 1980s desk", "style": "strip", "size": 70, "x": 540, "y": 330, "rotation": -2, "enter": { "type": "zoom-in", "at": 0, "duration": 0.25 } }
+      ]
+    },
+    {
+      "id": "s2-reveal",
+      "start": "@It was this-0.06",
+      "background": { "preset": "window-city" },
+      "camera": [{ "at": "+0", "from": { "scale": 3.2 }, "to": { "scale": 1 }, "origin": [290, 1110], "duration": 1.5, "ease": "power3.inOut" }],
+      "elements": [
+        { "id": "exec", "piece": "exec", "x": 540, "y": 1010, "w": 880, "origin": "bottom", "loop": { "type": "breathe" }, "actions": [{ "type": "rotate", "at": "+2.3", "to": -1.5, "duration": 1.5 }] },
+        { "id": "rays", "effect": "rays", "x": 300, "y": 1103, "r": 350, "enter": { "type": "fade", "at": "+0.7", "duration": 0.4 } },
+        { "id": "desk", "piece": "desk", "x": 540, "y": 1500, "w": 1000 },
+        { "id": "lamp", "piece": "lamp", "x": 905, "y": 1090, "w": 220 },
+        { "id": "phoneOld", "piece": "phone_old", "x": 720, "y": 1175, "w": 200 },
+        { "id": "rolo", "piece": "rolodex", "x": 290, "y": 1110, "w": 250, "actions": [{ "type": "pulse", "at": "@The Rolodex" }] },
+        { "id": "word", "text": "ROLODEX", "style": "strip", "size": 110, "x": 540, "y": 300, "rotation": 2, "enter": { "type": "pop", "at": "@The Rolodex", "duration": 0.35 } }
+      ]
+    },
+    {
+      "id": "s3-1956",
+      "start": "@It was invented-0.14",
+      "background": { "preset": "office" },
+      "camera": [{ "at": "+0", "from": { "scale": 1.06 }, "to": { "scale": 1 }, "duration": 8, "ease": "none" }],
+      "elements": [
+        { "id": "desk", "piece": "desk", "x": 800, "y": 1560, "w": 520 },
+        { "id": "rolo", "piece": "rolodex", "x": 800, "y": 1270, "w": 300 },
+        { "id": "az", "effect": "ticker", "x": 800, "y": 1040, "w": 250, "h": 160, "at": "@A to Z", "values": "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "step": 0.045, "enter": { "type": "fade", "at": "@A to Z-0.3", "duration": 0.3 } },
+        { "id": "sec", "piece": "secretary", "x": 330, "y": 1250, "w": 360, "origin": "bottom", "enter": { "type": "slide-left", "at": "+0.05", "duration": 0.7 }, "actions": [{ "type": "move", "at": "@so a secretary+0.25", "to": { "x": 400 }, "duration": 0.6 }] },
+        { "id": "year", "text": "1956", "style": "stamp", "x": 540, "y": 390, "rotation": -7, "enter": { "type": "stamp", "at": "@1956-0.07" } }
+      ]
+    },
+    {
+      "id": "s4-hollywood",
+      "start": "@Then Hollywood-0.16",
+      "background": { "preset": "stage" },
+      "camera": [{ "at": "+0.08", "to": { "scale": 1.12 }, "origin": [540, 1240], "duration": 7.5, "ease": "none" }],
+      "elements": [
+        { "id": "reel", "piece": "reel", "x": 230, "y": 450, "w": 420, "enter": { "type": "spin", "at": "+0.03", "duration": 1 }, "loop": { "type": "spin", "amount": 100 } },
+        { "id": "tv", "piece": "tv", "x": 540, "y": 1150, "w": 820, "enter": { "type": "slide-up", "at": "+0.08", "duration": 0.7 } },
+        { "id": "screen", "shape": "rect", "fill": "linear-gradient(#E1A73A,#C2502F)", "shadow": false, "x": 546, "y": 1244, "w": 505, "h": 447, "enter": { "type": "slide-up", "at": "+0.08", "duration": 0.7 }, "actions": [{ "type": "flash", "at": "+0.9" }] },
+        { "id": "miniExec", "piece": "exec", "x": 546, "y": 1270, "w": 300, "enter": { "type": "slide-up", "at": "+0.08", "duration": 0.7 } },
+        { "id": "tvRays", "effect": "rays", "x": 446, "y": 1350, "r": 210, "count": 16, "color": "rgba(255,240,190,.7)", "enter": { "type": "fade", "at": "@fat Rolodex+0.06", "duration": 0.3 } },
+        { "id": "miniRolo", "piece": "rolodex", "x": 446, "y": 1330, "w": 120, "origin": "bottom", "enter": { "type": "slide-up", "at": "+0.08", "duration": 0.7 }, "actions": [{ "type": "scale", "at": "@fat Rolodex", "to": 2.3, "duration": 0.6 }] },
+        { "id": "spark", "effect": "sparkles", "x": 540, "y": 1230, "w": 420, "h": 380, "count": 7, "at": "@fat Rolodex+0.16" }
+      ]
+    },
+    {
+      "id": "s5-network",
+      "start": "@Because every card-0.06",
+      "background": { "preset": "radial" },
+      "camera": [
+        { "at": "@value", "to": { "scale": 1.06 }, "duration": 0.35 },
+        { "at": "@value+0.35", "to": { "scale": 1 }, "duration": 0.35 }
+      ],
+      "elements": [
+        { "id": "strings", "effect": "strings", "from": "rolo", "to": ["p0", "p1", "p2", "p3", "p4", "p5"], "at": "@Your Rolodex was your network-0.7", "exit": { "type": "fade", "at": "@Then the cards+0.4", "duration": 0.6 } },
+        { "id": "rolo", "piece": "rolodex", "x": 540, "y": 960, "w": 380, "exit": { "type": "shrink", "at": "@cards moved", "duration": 0.6 } },
+        { "id": "c0", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.08", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.1", "to": { "x": 200, "y": 560, "rotation": -12 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A client", "duration": 0.18 } },
+        { "id": "c1", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.2", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.22", "to": { "x": 880, "y": 560, "rotation": 9 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A client+0.1", "duration": 0.18 } },
+        { "id": "c2", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.32", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.34", "to": { "x": 150, "y": 1000, "rotation": 14 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A favour", "duration": 0.18 } },
+        { "id": "c3", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.44", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.46", "to": { "x": 930, "y": 1000, "rotation": -8 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A favour+0.1", "duration": 0.18 } },
+        { "id": "c4", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.56", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.58", "to": { "x": 250, "y": 1450, "rotation": 6 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A deal", "duration": 0.18 } },
+        { "id": "c5", "piece": "card", "x": 540, "y": 960, "w": 170, "enter": { "type": "pop", "at": "+0.68", "duration": 0.2 }, "actions": [{ "type": "move", "at": "+0.7", "to": { "x": 830, "y": 1450, "rotation": -15 }, "duration": 0.6, "ease": "power3.out" }], "exit": { "type": "shrink", "at": "@A deal+0.1", "duration": 0.18 } },
+        { "id": "p0", "piece": "p0", "x": 200, "y": 560, "w": 165, "enter": { "type": "pop", "at": "@A client+0.1" }, "loop": { "type": "bob", "amount": 8 }, "exit": { "type": "wind", "at": "@Then the cards+0.76" } },
+        { "id": "p1", "piece": "p1", "x": 880, "y": 560, "w": 137, "enter": { "type": "pop", "at": "@A client+0.2" }, "loop": { "type": "bob", "amount": 8, "period": 1.4 }, "exit": { "type": "wind", "at": "@Then the cards+0.98" } },
+        { "id": "p2", "piece": "p2", "x": 150, "y": 1000, "w": 105, "enter": { "type": "pop", "at": "@A favour+0.1" }, "loop": { "type": "bob", "amount": 8, "period": 1.1 }, "exit": { "type": "wind", "at": "@Then the cards+1.2" } },
+        { "id": "p3", "piece": "p3", "x": 930, "y": 1000, "w": 133, "enter": { "type": "pop", "at": "@A favour+0.2" }, "loop": { "type": "bob", "amount": 8, "period": 1.3 }, "exit": { "type": "wind", "at": "@Then the cards+1.42" } },
+        { "id": "p4", "piece": "p4", "x": 250, "y": 1450, "w": 125, "enter": { "type": "pop", "at": "@A deal+0.1" }, "loop": { "type": "bob", "amount": 8, "period": 1.25 }, "exit": { "type": "wind", "at": "@Then the cards+1.64" } },
+        { "id": "p5", "piece": "p5", "x": 830, "y": 1450, "w": 127, "enter": { "type": "pop", "at": "@A deal+0.2" }, "loop": { "type": "bob", "amount": 8, "period": 1.15 }, "exit": { "type": "wind", "at": "@Then the cards+1.86" } },
+        { "id": "phone", "piece": "phone", "x": 540, "y": 1060, "w": 400, "enter": { "type": "slide-up", "at": "@phones", "duration": 0.8 } },
+        { "id": "rows", "effect": "list", "x": 540, "y": 1064, "w": 326, "h": 672, "rows": 9, "at": "@The numbers survived", "enter": { "type": "slide-up", "at": "@phones", "duration": 0.8 }, "sfx": false },
+        { "id": "notes", "effect": "notes", "count": 5, "at": "@story behind", "flyAt": "@needed-0.05" }
+      ]
+    },
+    {
+      "id": "s7-today",
+      "start": "@Today-0.07",
+      "background": { "preset": "expo" },
+      "camera": [{ "at": "+0", "to": { "scale": 1.08 }, "origin": [540, 1100], "duration": 5.7, "ease": "none" }],
+      "elements": [
+        { "id": "visitor", "piece": "visitor", "x": 540, "y": 1330, "w": 600, "origin": "bottom", "enter": { "type": "slide-right", "at": "+0.05", "duration": 0.7 }, "loop": { "type": "sway", "amount": 2, "period": 1, "from": "+0.85" } },
+        { "id": "qs", "effect": "question-marks", "x": 600, "y": 980, "r": 400, "count": 3, "at": "@forgotten" }
+      ]
+    },
+    {
+      "id": "s8-close",
+      "start": "@The Rolodex never",
+      "end": 56.6,
+      "background": { "preset": "radial", "colors": { "cy": 1150 } },
+      "elements": [
+        { "id": "phone", "piece": "phone", "x": 540, "y": 1150, "w": 420, "enter": { "type": "slide-up", "at": "+0.1", "duration": 0.6 } },
+        { "id": "contact", "effect": "contact", "x": 540, "y": 1154, "w": 342, "h": 706, "title": "Sara K.", "subtitle": "Head of Sales", "note": "📍 Met at GITEX", "note2": "Wants a demo in January", "noteAt": "@needed somewhere-0.26", "enter": { "type": "slide-up", "at": "+0.1", "duration": 0.6 } },
+        { "id": "card", "piece": "card", "x": 540, "y": 700, "w": 560, "rotation": -3, "enter": { "type": "zoom-in", "at": "+0", "duration": 0.55 }, "exit": { "type": "shrink", "at": "+1.5", "duration": 0.45 } },
+        { "id": "beam", "effect": "scan-beam", "x": 540, "y": 705, "w": 580, "h": 290, "at": "+0.65", "duration": 0.7 },
+        { "id": "logo", "effect": "logo", "x": 540, "y": 1760, "w": 360, "at": "@somewhere" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "cutout-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Turn a prompt into short vertical paper cut-out animation videos.",
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "demo": "node scripts/seed-demo.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.6.0",
+    "@google/genai": "^3.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "gsap": "^3.12.5",
+    "multer": "^1.4.5-lts.2",
+    "playwright": "^1.63.0"
+  }
+}

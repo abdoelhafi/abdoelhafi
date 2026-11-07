@@ -1,0 +1,470 @@
+[
+ {
+  "id": "freeport",
+  "theme": "Money & loopholes",
+  "title": "The warehouse with 1.2 million artworks nobody can see",
+  "hook": "There's a building in Geneva holding more art than most museums. It isn't open to the public, and the paintings in it are, legally, nowhere.",
+  "beats": [
+   "A painting is sold for millions, then disappears into a grey warehouse by the airport.",
+   "Inside a freeport, goods count as outside the country, so no import tax until they leave.",
+   "Some works are bought, sold and resold without ever moving a metre.",
+   "An estimated 1.2 million artworks, about $100 billion, sit there. Nobody publishes the real count."
+  ],
+  "visuals": "Paper paintings sliding into a cut-out vault; customs stamps bouncing off the walls; a tiny collector carrying a key bigger than himself.",
+  "ukeepMoment": "Ends on: the most valuable things are the ones you can find again. Card collage turns into one searchable list.",
+  "sources": [
+   {
+    "label": "Masterworks: art freeports explained",
+    "url": "https://www.masterworks.com/academy/posts/art-freeports-explained-why-billions-in-art-sit-in-tax-free-warehouses"
+   },
+   {
+    "label": "Frieze: Safe Haven",
+    "url": "https://www.frieze.com/article/safe-haven"
+   }
+  ],
+  "check": "1.2 million is a press estimate (Connaissance des Arts), not an official figure. Say \"estimated\".",
+  "verified": true
+ },
+ {
+  "id": "delaware",
+  "theme": "Money & loopholes",
+  "title": "Why two-thirds of America's biggest companies 'live' in a tiny state",
+  "hook": "Most of the Fortune 500 have never had an office in Delaware. Legally, that's where they live.",
+  "beats": [
+   "A small state with fewer people than many cities.",
+   "About 68% of Fortune 500 companies are incorporated there.",
+   "The real draw is its business court and a century of company law, not only tax.",
+   "Delaware doesn't tax company income earned outside the state."
+  ],
+  "visuals": "Giant paper office towers squeezed into a tiny paper state; a judge cut-out in a robe stamping documents at speed.",
+  "ukeepMoment": "Ends on: where a company is registered and where its relationships are are two different maps.",
+  "sources": [
+   {
+    "label": "CNBC: why more than 60% incorporate in Delaware",
+    "url": "https://www.cnbc.com/2023/03/13/why-more-than-60percent-of-fortune-500-companies-incorporated-in-delaware.html"
+   },
+   {
+    "label": "Delaware Division of Corporations",
+    "url": "https://corplaw.delaware.gov/why-businesses-choose-delaware/"
+   }
+  ],
+  "check": "Use the state's own figure (about 68%) and say so.",
+  "verified": true
+ },
+ {
+  "id": "apple",
+  "theme": "Money & loopholes",
+  "title": "The €13 billion tax bill Ireland didn't want",
+  "hook": "In 2024 Europe's top court told Ireland to collect €13 billion from Apple. Ireland had fought for eight years not to.",
+  "beats": [
+   "2016: the European Commission says Ireland gave Apple an illegal tax deal.",
+   "Ireland and Apple both appeal, and win in 2020.",
+   "10 September 2024: the Court of Justice overturns that, final, no appeal.",
+   "The money had sat in escrow since 2018."
+  ],
+  "visuals": "An apple-shaped money bag on a seesaw between Dublin and Brussels; paper gavels; a vault labelled 'escrow' slowly filling.",
+  "ukeepMoment": "Keep uKeep out of this one, or use it only in the caption. It's a pure curiosity video that grows the account.",
+  "sources": [
+   {
+    "label": "Irish Times, 10 Sep 2024",
+    "url": "https://www.irishtimes.com/business/2024/09/10/apple-tax-case-ruling-ireland-european-court-of-justice-13-billion"
+   },
+   {
+    "label": "ICIJ",
+    "url": "https://www.icij.org/investigations/paradise-papers/top-eu-court-rules-apple-owes-ireland-over-14b-in-back-taxes/"
+   }
+  ],
+  "check": "Give both sides: Apple said it already paid US tax on those profits.",
+  "verified": true
+ },
+ {
+  "id": "dutyfree",
+  "theme": "Money & loopholes",
+  "title": "How bored passengers at a tiny Irish airport invented duty free",
+  "hook": "Every airport in the world has a duty-free shop because of one refuelling stop in the west of Ireland.",
+  "beats": [
+   "Transatlantic planes had to stop at Shannon to refuel.",
+   "Brendan O'Regan noticed passengers waiting with nothing to do.",
+   "1947: a kiosk of a few square metres opens. The first airport duty free.",
+   "Liquor and cigarettes arrive in 1951. Today it's a global industry."
+  ],
+  "visuals": "Paper propeller plane landing; tiny passengers yawning; a kiosk unfolding like a pop-up book into a giant mall.",
+  "ukeepMoment": "Ends on: big businesses start from noticing people. Who did you notice this week?",
+  "sources": [
+   {
+    "label": "Business Traveller: 1947, the birth of duty free",
+    "url": "https://www.businesstraveller.com/features/snapshot-1947-birth-duty-free/"
+   },
+   {
+    "label": "Moodie Davitt Report",
+    "url": "https://moodiedavittreport.com/rest-in-peace-dr-brendan-oregan-father-of-duty-free-passes-away-030208/"
+   }
+  ],
+  "check": "Most sources say 1947; one headline says the idea came in 1950. Say \"the late 1940s\" if unsure.",
+  "verified": true
+ },
+ {
+  "id": "jafza",
+  "theme": "Money & loopholes",
+  "title": "From 19 companies in the desert to 11,000",
+  "hook": "In 1985, Dubai built a free zone next to a port and 19 companies moved in. Today it hosts about 11,000.",
+  "beats": [
+   "The bet: a zone where foreign companies could own 100% and pay no tax.",
+   "1985: 19 companies. 1995: 500.",
+   "Today about 10,700 to 11,000 businesses, including 100+ Fortune Global 500 names.",
+   "Why it worked: one port, one airport, one time zone between Europe and Asia."
+  ],
+  "visuals": "Sand dunes unfolding into rows of paper warehouses; container ships stacking up; a counter ticking from 19 to 11,000.",
+  "ukeepMoment": "Ends on Big 5 or GITEX, the shows those companies exhibit at. Your audience's own world.",
+  "sources": [
+   {
+    "label": "Jafza: about us",
+    "url": "https://www.jafza.ae/about"
+   },
+   {
+    "label": "Khaleej Times: Jafza at 40",
+    "url": "https://www.khaleejtimes.com/business/dubai-jafza-40-year-anniversary?amp=1"
+   }
+  ],
+  "check": "Jafza's own site says 10,700+; a 2026 DP World release says 11,000+. Say \"about 11,000\".",
+  "verified": true
+ },
+ {
+  "id": "hawala",
+  "theme": "Money & loopholes",
+  "title": "Sending money across the world without moving any money",
+  "hook": "You hand cash to a man in Dubai. An hour later your family collects it in another country. No money crossed the border.",
+  "beats": [
+   "Two brokers who trust each other, one in each country.",
+   "You pay one; the other pays your family from his own cash.",
+   "They settle later, sometimes in goods or services.",
+   "No contract. If a broker cheats once, nobody deals with him again."
+  ],
+  "visuals": "Two paper figures shaking hands across a map; coins staying put while a dotted line moves; a ledger book with handwritten entries.",
+  "ukeepMoment": "Ends on: whole systems run on knowing who you can trust. Remember the people you meet.",
+  "sources": [
+   {
+    "label": "Corporate Finance Institute: hawala",
+    "url": "https://corporatefinanceinstitute.com/resources/wealth-management/hawala/"
+   },
+   {
+    "label": "Wikipedia: Hawala",
+    "url": "https://www.Wikipedia.org/wiki/Hawala"
+   }
+  ],
+  "check": "Mention that it's regulated today and can be misused. Don't present it as a how-to.",
+  "verified": true
+ },
+ {
+  "id": "napkin",
+  "theme": "Deals on a handshake",
+  "title": "The napkin that bought Messi",
+  "hook": "Barcelona's first deal with a 13-year-old Messi was written on a paper napkin. In 2024 that napkin sold for £762,400.",
+  "beats": [
+   "14 December 2000: Messi's family is losing patience with Barcelona.",
+   "Sporting director Carles Rexach grabs a napkin and writes a promise to sign him.",
+   "The club confirms it properly the same night.",
+   "May 2024: Bonhams auctions the napkin for £762,400."
+  ],
+  "visuals": "Restaurant table seen from above; a paper napkin unfolding; a pen scribbling; the napkin flying into an auction house.",
+  "ukeepMoment": "Ends on: the most important deals start as a quick note. Write it down before it's gone.",
+  "sources": [
+   {
+    "label": "ESPN",
+    "url": "https://global.espn.com/football/story/_/id/40164590/lionel-messi-famous-barcelona-napkin-sold-auction"
+   },
+   {
+    "label": "NBC News",
+    "url": "https://www.nbcnews.com/news/sports/deal-written-napkin-sent-lionel-messi-barcelona-sells-auction-965000-rcna152777"
+   }
+  ],
+  "check": "Use the pound figure; dollar figures vary with the exchange rate.",
+  "verified": true
+ },
+ {
+  "id": "diamonds",
+  "theme": "Deals on a handshake",
+  "title": "Million-dollar diamond deals with no contract",
+  "hook": "In the diamond trade, millions change hands on two words and a handshake.",
+  "beats": [
+   "Dealers close with \"mazal u'bracha\": luck and blessing.",
+   "Once said, the deal stands. No lawyers, no signatures.",
+   "The enforcement is reputation: break your word once, and nobody trades with you again.",
+   "The custom goes back at least to Amsterdam's diamond exchange."
+  ],
+  "visuals": "Close-up paper hands shaking; a loupe zooming into a diamond; a crowd of tiny dealers turning their backs on one figure.",
+  "ukeepMoment": "Ends on: your network is your contract. Know who you shook hands with.",
+  "sources": [
+   {
+    "label": "Europa Star: two words worth a contract",
+    "url": "https://www.europastarjewellery.com/jewellery-highlights/mazal-u-bracha-two-words-that-are-worth-a-contract.html"
+   },
+   {
+    "label": "Israel Diamond Institute",
+    "url": "https://en.israelidiamond.co.il/wikidiamond/terms-attributes-the-diamond/mazal-and-bracha/"
+   }
+  ],
+  "check": "Origins are disputed. Say \"for centuries\", not a specific date.",
+  "verified": true
+ },
+ {
+  "id": "sunvalley",
+  "theme": "Deals on a handshake",
+  "title": "The summer camp where billionaires buy newspapers",
+  "hook": "Jeff Bezos agreed to buy the Washington Post at a summer retreat in Idaho. The price took one sentence.",
+  "beats": [
+   "Every July, Allen & Co. invites media and tech bosses to Sun Valley, Idaho.",
+   "2013: Bezos and Don Graham meet there twice.",
+   "Graham: \"I named a price and Jeff agreed to pay it.\" $250 million.",
+   "Other big media deals have been linked to the same week."
+  ],
+  "visuals": "Private jets parking in rows on a paper runway; fleece vests; two cut-out figures on a bench with a speech bubble showing $250M.",
+  "ukeepMoment": "Ends on: the biggest deals happen where people meet in person. And then someone has to follow up.",
+  "sources": [
+   {
+    "label": "Business Insider",
+    "url": "https://www.businessinsider.in/jeff-bezos-and-donald-graham-did-the-washington-post-deal-at-allen-co-s-sun-valley-conference/articleshow/21649323.cms"
+   },
+   {
+    "label": "Fortune: classic deals of Sun Valley",
+    "url": "https://fortune.com/2014/07/08/a-look-back-at-classic-deals-of-sun-valleys-past"
+   }
+  ],
+  "check": "They had talked earlier in 2013. Say the deal was agreed there, not that they first met there.",
+  "verified": true
+ },
+ {
+  "id": "tupperware",
+  "theme": "Deals on a handshake",
+  "title": "Why Tupperware vanished from stores and sold better",
+  "hook": "In 1951, Tupperware pulled its products out of every shop. Sales went up.",
+  "beats": [
+   "Plastic boxes with a strange 'burp' lid sat unsold on store shelves.",
+   "Brownie Wise was selling them at parties in people's living rooms.",
+   "Earl Tupper copies her: stores out, home parties in.",
+   "She becomes one of the best-known saleswomen in America, until he fires her in 1958."
+  ],
+  "visuals": "Paper shelves with dusty boxes; a living room filling with cut-out guests; lids burping with little speech bubbles.",
+  "ukeepMoment": "Ends on: people buy from people they've met. The real product is the relationship.",
+  "sources": [
+   {
+    "label": "Smithsonian Magazine",
+    "url": "https://www.smithsonianmag.com/smithsonian-institution/story-brownie-wise-ingenious-marketer-behind-tupperware-party-180968658/"
+   },
+   {
+    "label": "PBS American Experience",
+    "url": "https://www.pbs.org/wgbh/americanexperience/features/tupperware-wise/"
+   }
+  ],
+  "check": "She didn't invent home parties; she perfected them. Say it that way.",
+  "verified": true
+ },
+ {
+  "id": "rolodex",
+  "theme": "Deals on a handshake",
+  "title": "The desk gadget that was worth more than a salary",
+  "hook": "In the 1980s, people changing jobs fought over one object: their Rolodex.",
+  "beats": [
+   "1956: a rotating card file is invented for secretaries.",
+   "Hollywood puts it on every power desk.",
+   "Your Rolodex was your network, and your network was your value.",
+   "Then it moved into phones, and most of it got lost."
+  ],
+  "visuals": "Spinning paper card wheel; cards flying out into the shapes of people; a briefcase tug-of-war.",
+  "ukeepMoment": "The most natural uKeep ending of the bank: the Rolodex never died, it just needs a new home.",
+  "sources": [
+   {
+    "label": "Wikipedia: Rolodex",
+    "url": "https://en.wikipedia.org/wiki/Rolodex"
+   },
+   {
+    "label": "Cooper Hewitt: the power of the Rolodex",
+    "url": "https://www.cooperhewitt.org/2014/04/15/the-power-of-the-rolodex/"
+   }
+  ],
+  "check": "Who invented it is disputed (Neustadter or his engineer Hildaur Neilsen). Say \"invented in 1956\" without naming one.",
+  "verified": true
+ },
+ {
+  "id": "weakties",
+  "theme": "Science of who you know",
+  "title": "Your next job won't come from a friend",
+  "hook": "LinkedIn ran an experiment on 20 million people. New jobs came most often from acquaintances, not close friends.",
+  "beats": [
+   "1973: sociologist Mark Granovetter's idea, the strength of weak ties.",
+   "2022: LinkedIn tests it over five years, 600,000 new jobs.",
+   "The sweet spot: people you know a little and rarely talk to.",
+   "Close friends know what you know. Acquaintances know what you don't."
+  ],
+  "visuals": "A web of paper people; thick strings to friends, thin threads to acquaintances; a job offer travelling along the thinnest thread.",
+  "ukeepMoment": "Ends on: weak ties are the ones you forget first. The person from one conference, met once.",
+  "sources": [
+   {
+    "label": "Science (PubMed)",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/36107999/"
+   },
+   {
+    "label": "MIT News",
+    "url": "https://news.mit.edu/index%2Ephp/2022/weak-ties-linkedin-employment-0915"
+   }
+  ],
+  "check": "The effect is an inverted U: moderately weak ties help most, not the weakest. Keep that nuance.",
+  "verified": true
+ },
+ {
+  "id": "degrees",
+  "theme": "Science of who you know",
+  "title": "You're 3.57 people away from anyone",
+  "hook": "It's not six degrees of separation any more. Facebook measured it: 3.57.",
+  "beats": [
+   "1960s: Milgram's letters experiment gives us 'six degrees'.",
+   "2016: Facebook measures 1.6 billion accounts: 3.57 people between any two.",
+   "In the US it's 3.46.",
+   "Which means someone you met last month is probably two steps from your next big customer."
+  ],
+  "visuals": "A paper letter hopping hand to hand across a map; the chain shrinking from 6 links to 3.5.",
+  "ukeepMoment": "Ends on: the chain only works if you remember the links.",
+  "sources": [
+   {
+    "label": "Fortune, Feb 2016",
+    "url": "https://fortune.com/2016/02/05/facebook-separation-degrees"
+   },
+   {
+    "label": "Time",
+    "url": "https://time.com/4208157/facebook-degrees-separation-kevin-bacon"
+   }
+  ],
+  "check": "It covers Facebook users only, not everyone. Say \"between Facebook users\".",
+  "verified": true
+ },
+ {
+  "id": "dunbar",
+  "theme": "Science of who you know",
+  "title": "Your brain can only hold about 150 relationships. Maybe.",
+  "hook": "A scientist says your brain caps your real relationships at about 150. Other scientists say that's nonsense.",
+  "beats": [
+   "Dunbar compares primate brain size and group size and predicts about 150 for humans.",
+   "He finds it in Christmas card lists, villages, army units.",
+   "2021: a Stockholm team reruns the maths and gets anywhere from 2 to 520.",
+   "The fight is still open. What's clear: you can't keep up with everyone without help."
+  ],
+  "visuals": "A paper brain with 150 tiny portraits pinned inside; a second brain where the portraits spill out; two scientists throwing graphs.",
+  "ukeepMoment": "Ends on: whatever the number, the rest of the people you meet need to be written down somewhere.",
+  "sources": [
+   {
+    "label": "The Conversation: Dunbar's defence",
+    "url": "https://theconversation.com/dunbars-number-why-my-theory-that-humans-can-only-maintain-150-friendships-has-withstood-30-years-of-scrutiny-160676"
+   },
+   {
+    "label": "The Conversation: why we dispute it",
+    "url": "https://theconversation.com/why-we-dispute-dunbars-number-the-claim-humans-can-only-maintain-150-friendships-161944"
+   }
+  ],
+  "check": "Show both sides. The debate is the hook.",
+  "verified": true
+ },
+ {
+  "id": "vegas",
+  "theme": "Hidden economics of events",
+  "title": "Why the world's biggest tech show is in a gambling city",
+  "hook": "Las Vegas has about 151,000 hotel rooms. From Sunday to Thursday, tourists don't fill them. Trade shows do.",
+  "beats": [
+   "Weekends belong to tourists; weekdays used to be empty.",
+   "Conventions fill the midweek gap, and their visitors spend more.",
+   "CES alone has brought nearly 5 million visitors over the decades.",
+   "2021, when CES went virtual: January room rates collapsed."
+  ],
+  "visuals": "A paper hotel tower with lights switching on floor by floor as badges arrive; a calendar flipping Sun–Thu; prices dropping like dice.",
+  "ukeepMoment": "Ends on: tens of thousands of business cards change hands in one week. Where do they all go?",
+  "sources": [
+   {
+    "label": "CDC Gaming Reports: conventions fill hotels midweek",
+    "url": "https://cdcgaming.com/las-vegas-has-hosted-more-than-3-million-convention-visitors-since-june-rebound-key-to-filling-hotel-rooms-midweek/"
+   },
+   {
+    "label": "Casino.org: room rates without CES",
+    "url": "https://www.casino.org/news/las-vegas-hotel-room-rates-plunge-with-no-in-person-ces-event-this-year/"
+   }
+  ],
+  "check": "Figures come from different years. Don't add them up.",
+  "verified": true
+ },
+ {
+  "id": "davos",
+  "theme": "Hidden economics of events",
+  "title": "How a tuberculosis town became the world's most exclusive meeting",
+  "hook": "Before world leaders came to Davos, it was where people came to cure tuberculosis.",
+  "beats": [
+   "The 1800s: patients come for the thin, dry mountain air.",
+   "Thomas Mann sets The Magic Mountain in a Davos sanatorium.",
+   "Antibiotics empty the clinics. 1971: a professor invites about 450 European executives.",
+   "It becomes the World Economic Forum in 1987."
+  ],
+  "visuals": "Paper mountain; patients on balconies wrapped in blankets; the same balconies refilling with suits and lanyards.",
+  "ukeepMoment": "Ends on: the meeting is the easy part. What happens with the people you met there?",
+  "sources": [
+   {
+    "label": "WEF: 10 facts about Davos",
+    "url": "https://www.weforum.org/stories/all/know-10-facts-davos/"
+   },
+   {
+    "label": "WEF: 3 things you didn't know",
+    "url": "https://weforum.org/stories/2019/01/3-things-you-probably-didnt-know-about-davos"
+   }
+  ],
+  "check": "Attendance in 1971 is given as 400–450. Say \"about 450\".",
+  "verified": true
+ },
+ {
+  "id": "hannover",
+  "theme": "Hidden economics of events",
+  "title": "The trade fair that occupying soldiers started in a factory",
+  "hook": "The world's biggest industrial fair was started in 1947 by a foreign army, in bombed-out factory halls.",
+  "beats": [
+   "Germany's traditional fair city, Leipzig, is in the Soviet zone.",
+   "The British military government wants exports to restart in its zone.",
+   "August 1947: an export fair opens in factory halls near Hanover.",
+   "736,000 visitors from 53 countries, about $32 million in deals."
+  ],
+  "visuals": "A paper map split in two; trucks rolling into a half-ruined hall; order books filling up page by page.",
+  "ukeepMoment": "Ends on: trade shows exist so strangers can meet and do business. Then the follow-up begins.",
+  "sources": [
+   {
+    "label": "Hannover Messe: history",
+    "url": "https://www.hannovermesse.de/en/about-us/about-the-show/history-of-hannover-messe/"
+   },
+   {
+    "label": "AEO: Hannover's British connection",
+    "url": "https://aeo.org.uk/blog-posts/hannover-british-connection"
+   }
+  ],
+  "check": "Use Deutsche Messe's own visitor and deal figures.",
+  "verified": true
+ },
+ {
+  "id": "canton",
+  "theme": "Hidden economics of events",
+  "title": "From 1,223 buyers to a fair you can't see in a week",
+  "hook": "In 1957, China's Canton Fair had 1,223 foreign buyers. Today it has more booths than some towns have houses.",
+  "beats": [
+   "1957: about 9,600 m² in Guangzhou, 19 countries.",
+   "It runs twice a year, without stopping, for almost 70 years.",
+   "2025: around 74,000 booths and about 31,000 exhibitors.",
+   "Buyers fly in to find factories in person."
+  ],
+  "visuals": "A single paper stall multiplying into an endless grid; a tiny buyer with a giant map; stacks of cards rising like skyscrapers.",
+  "ukeepMoment": "Ends on: how many business cards does one buyer bring home from that? (Show a suitcase bursting.)",
+  "sources": [
+   {
+    "label": "Guangzhou government",
+    "url": "https://www.gz.gov.cn/guangzhouinternational/businessenvironmentoptimization/businessnews/content/post_9292106.html"
+   },
+   {
+    "label": "Inside Retail: 137th Canton Fair",
+    "url": "https://insideretail.com.au/business/the-137th-canton-fair-sets-new-records-as-it-draws-international-businesses-202504"
+   }
+  ],
+  "check": "Call it China's largest trade fair. \"World's largest\" isn't confirmed.",
+  "verified": true
+ }
+]
