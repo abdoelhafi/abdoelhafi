@@ -7,7 +7,7 @@ import * as mock from './mock.js';
 
 let anthropic, gemini;
 const claudeClient = () => (anthropic ??= new Anthropic({ apiKey: config.anthropicKey }));
-const geminiClient = () => (gemini ??= new GoogleGenAI({ apiKey: config.geminiKey }));
+const geminiClient = () => (gemini ??= new GoogleGenAI({ apiKey: config.geminiKey, apiVersion: 'v1beta' }));
 
 export function providerInfo() {
   const p = activeProvider();
@@ -75,20 +75,44 @@ async function claude({ system, prompt, webSearch, images = [] }) {
   return text;
 }
 
-async function geminiText({ system, prompt, webSearch, images = [] }) {
+async function geminiText(o) {
+  const { system, prompt, webSearch, images = [] } = o;
   const parts = [
     ...images.map((im) => ({ inlineData: { mimeType: im.mime, data: fs.readFileSync(im.path).toString('base64') } })),
     { text: prompt },
   ];
-  const res = await geminiClient().models.generateContent({
-    model: config.geminiModel,
+  const call = (model) => geminiClient().models.generateContent({
+    model,
     contents: [{ role: 'user', parts }],
     config: {
       systemInstruction: system,
       // Google Search grounding can't be combined with JSON mode, so search runs return fenced JSON we parse.
       ...(webSearch ? { tools: [{ googleSearch: {} }] } : { responseMimeType: 'application/json' }),
     },
-  }).catch((e) => { throw geminiError(e); });
+  });
+  // Try models in order, moving on when one has no quota (free-tier keys: no Pro, and search only on some Flash models).
+  const models = [...new Set((webSearch ? [config.geminiSearchModel, config.geminiModel, config.geminiFallbackModel] : [config.geminiModel, config.geminiFallbackModel, config.geminiSearchModel]).filter(Boolean))];
+  let res, lastErr;
+  const busy = (e) => [500, 503].includes(e?.status) || /UNAVAILABLE|high demand|INTERNAL/.test(String(e?.message));
+  const quota = (e) => e?.status === 429 || /RESOURCE_EXHAUSTED|quota/i.test(String(e?.message));
+  outer: for (const m of models) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try { res = await call(m); break outer; } catch (e) {
+        lastErr = e;
+        if (busy(e) && attempt === 0) { await new Promise((r) => setTimeout(r, 3000)); continue; }
+        if (!quota(e) && !busy(e)) throw geminiError(e);
+        console.warn(`Gemini ${m}: ${quota(e) ? 'no quota' : 'busy'}${webSearch ? ' (search)' : ''}, trying the next model`);
+        break;
+      }
+    }
+  }
+  if (!res && webSearch && o.allowNoSearch) {
+    // search unavailable on every model: answer without it; the caller marks results unverified
+    console.warn('Gemini: web search unavailable, generating without it');
+    o.searchSkipped = true;
+    return geminiText({ ...o, webSearch: false, allowNoSearch: false });
+  }
+  if (!res) throw geminiError(lastErr);
   const t = res.text;
   if (!t) throw new Error(`Gemini returned no text (finish reason: ${res.candidates?.[0]?.finishReason || 'unknown'})`);
   return t;

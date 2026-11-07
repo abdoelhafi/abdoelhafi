@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import express from 'express';
 import multer from 'multer';
-import { config, ROOT } from './config.js';
+import { config, ROOT, DATA_DIR } from './config.js';
 import * as store from './store.js';
 import { projectDir } from './store.js';
 import { generateJSON, providerInfo } from './llm.js';
@@ -15,8 +15,19 @@ import { wordsFromAlignment, resolveTimeline, lintTimeline } from './timeline.js
 import { stills, startRender, renderStatus } from './render.js';
 
 const app = express();
+app.get('/healthz', (req, res) => res.send('ok')); // health check for hosts, before the password
+
+// Optional password for a deployed copy (APP_PASSWORD). The renderer's own browser on localhost is let through.
+if (process.env.APP_PASSWORD) {
+  const expected = 'Basic ' + Buffer.from(`${process.env.APP_USER || 'admin'}:${process.env.APP_PASSWORD}`).toString('base64');
+  app.use((req, res, next) => {
+    const local = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress) && !req.headers['x-forwarded-for'];
+    if (local || req.headers.authorization === expected) return next();
+    res.set('WWW-Authenticate', 'Basic realm="Cut-Out Studio"').status(401).send('Password required');
+  });
+}
 app.use(express.json({ limit: '5mb' }));
-const upload = multer({ dest: path.join(ROOT, 'data', 'tmp'), limits: { fileSize: 25 * 1024 * 1024 } });
+const upload = multer({ dest: path.join(DATA_DIR, 'tmp'), limits: { fileSize: 25 * 1024 * 1024 } });
 
 app.use('/', express.static(path.join(ROOT, 'public')));
 app.use('/engine', express.static(path.join(ROOT, 'engine')));
@@ -64,8 +75,15 @@ app.post('/api/projects/:id/ideas', h(async (req, res) => {
   const theme = (req.body.theme || p.theme || '').trim();
   if (!theme) throw bad('Type a theme first.');
   const { system, prompt } = P.ideasPrompt({ theme, count: clamp(req.body.count || 15, 3, 25), settings: getSettings(), exclude: req.body.append ? p.ideas.map((i) => i.title) : [] });
-  const out = await generateJSON({ task: 'ideas', system, prompt, webSearch: req.body.webSearch !== false });
-  const ideas = (out.ideas || out || []).map((i, k) => ({ ...i, id: i.id || `idea-${k}`, verified: i.verified !== false && (i.sources || []).length >= 1 }));
+  const req2 = { task: 'ideas', system, prompt, webSearch: req.body.webSearch !== false, allowNoSearch: true };
+  const out = await generateJSON(req2);
+  const unchecked = req2.searchSkipped || req.body.webSearch === false;
+  const ideas = (out.ideas || out || []).map((i, k) => ({
+    ...i, id: i.id || `idea-${k}`,
+    verified: !unchecked && i.verified !== false && (i.sources || []).length >= 1,
+    check: unchecked ? `Not fact-checked (web search was unavailable). ${i.check || ''}`.trim() : i.check,
+  }));
+  await resolveSourceLinks(ideas);
   res.json(withUrls(store.update(p.id, (q) => { q.theme = theme; q.ideas = req.body.append ? [...q.ideas, ...ideas] : ideas; })));
 }));
 
@@ -442,6 +460,18 @@ app.use((err, req, res, next) => {
   if (status >= 500) console.error(err);
   res.status(status).json({ error: err.message, raw: err.raw });
 });
+
+// Gemini search grounding returns temporary vertexaisearch redirect links: follow them to the real article URLs.
+async function resolveSourceLinks(ideas) {
+  const jobs = [];
+  for (const i of ideas) for (const src of i.sources || []) {
+    if (!/vertexaisearch\.cloud\.google\.com\/grounding-api-redirect/.test(src.url || '')) continue;
+    jobs.push(fetch(src.url, { redirect: 'manual', signal: AbortSignal.timeout(8000) })
+      .then((r) => { const loc = r.headers.get('location'); if (loc) src.url = loc; })
+      .catch(() => {}));
+  }
+  await Promise.all(jobs);
+}
 
 function bad(msg) { const e = new Error(msg); e.status = 400; return e; }
 function findAsset(p, id) { const a = p.assets.find((x) => x.id === id); if (!a) throw bad(`Asset "${id}" not found`); return a; }

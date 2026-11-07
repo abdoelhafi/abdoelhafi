@@ -36,11 +36,22 @@ With no keys at all, the app runs on offline fixtures: the 18 researched story-b
 |---|---|
 | `LLM_PROVIDER` | `auto` (Claude if its key is set, else Gemini, else mock), `gemini`, `claude` or `mock` |
 | `GEMINI_API_KEY` | LLM steps (when Gemini is the provider) and in-app image generation |
-| `GEMINI_MODEL`, `GEMINI_IMAGE_MODEL` | defaults `gemini-pro-latest`, `gemini-3.1-flash-image` |
+| `GEMINI_MODEL`, `GEMINI_IMAGE_MODEL` | defaults `gemini-pro-latest`, `gemini-3.1-flash-image`. Free-tier keys have no Pro or image quota: the app falls back to `gemini-flash-latest`, and fact-checks with `gemini-2.5-flash` (`GEMINI_SEARCH_MODEL`) |
+| `APP_PASSWORD` | protects a deployed copy with a password (user `admin`) |
 | `ANTHROPIC_API_KEY`, `CLAUDE_MODEL` | Claude for the LLM steps (default `claude-opus-5-5`, with web search for fact-checking) |
 | `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID` | narration (default voice: George) |
 
 Behind a corporate proxy, run Node with `NODE_USE_ENV_PROXY=1` so its built-in `fetch` uses `HTTPS_PROXY`.
+
+## Deploy (Render)
+
+The repo has a Render Blueprint (`render.yaml` at the repo root) and a `Dockerfile` with Node, Chromium, Python/OpenCV and ffmpeg.
+
+1. Open https://render.com/deploy?repo=https://github.com/abdoelhafi/abdoelhafi/tree/ccr-18ed63bb-3wocck and sign in with GitHub.
+2. Fill in `APP_PASSWORD` (anything you like: the site asks for user `admin` and this password), `GEMINI_API_KEY`, `ELEVENLABS_API_KEY` (optional: `ANTHROPIC_API_KEY`).
+3. Deploy. The first build takes a few minutes; the Rolodex demo project is created on first start.
+
+It uses the Starter plan with a 5 GB disk (about $7/month plus disk) so projects survive restarts. Render's free plan has no disk and 512 MB, so projects would vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
 
 ## How it fits together
 

@@ -4,7 +4,7 @@ import { GoogleGenAI } from '@google/genai';
 import { config, geminiError } from './config.js';
 
 let client;
-const ai = () => (client ??= new GoogleGenAI({ apiKey: config.geminiKey }));
+const ai = () => (client ??= new GoogleGenAI({ apiKey: config.geminiKey, apiVersion: 'v1beta' }));
 
 /**
  * @param {string} prompt
