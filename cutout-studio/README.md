@@ -38,6 +38,7 @@ With no keys at all, the app runs on offline fixtures: the 18 researched story-b
 | `GEMINI_API_KEY` | LLM steps (when Gemini is the provider) and in-app image generation |
 | `GEMINI_MODEL`, `GEMINI_IMAGE_MODEL` | defaults `gemini-pro-latest`, `gemini-3.1-flash-image`. Free-tier keys have no Pro or image quota: the app falls back to `gemini-flash-latest`, and fact-checks with `gemini-2.5-flash` (`GEMINI_SEARCH_MODEL`) |
 | `APP_PASSWORD` | protects a deployed copy with a password (user `admin`) |
+| `LOW_MEMORY=1` | small hosts: single-process Chromium with a small heap. Rendering still needs about 600 MB, so a 512 MB free instance can do every step except the MP4 render |
 | `ANTHROPIC_API_KEY`, `CLAUDE_MODEL` | Claude for the LLM steps (default `claude-opus-5-5`, with web search for fact-checking) |
 | `ELEVENLABS_API_KEY`, `ELEVENLABS_VOICE_ID` | narration (default voice: George) |
 

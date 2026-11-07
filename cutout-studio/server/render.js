@@ -12,7 +12,13 @@ const FPS = 30;
 const jobs = new Map(); // projectId -> job
 
 async function openPlayer(baseUrl, id) {
-  const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+  // LOW_MEMORY=1 (small hosts such as Render's free 512 MB plan): one Chromium process, no GPU, small JS heap.
+  const low = process.env.LOW_MEMORY === '1';
+  const browser = await chromium.launch({
+    ...(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {}),
+    args: low ? ['--single-process', '--no-zygote', '--disable-dev-shm-usage', '--disable-gpu', '--disable-extensions',
+      '--renderer-process-limit=1', '--js-flags=--max-old-space-size=160', '--disable-features=site-per-process'] : [],
+  });
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
