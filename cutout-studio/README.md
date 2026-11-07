@@ -43,6 +43,17 @@ With no keys at all, the app runs on offline fixtures: the 18 researched story-b
 
 Behind a corporate proxy, run Node with `NODE_USE_ENV_PROXY=1` so its built-in `fetch` uses `HTTPS_PROXY`.
 
+## Deploy for free (Hugging Face Spaces)
+
+No card needed. A free CPU Space has 2 vCPUs and 16 GB RAM; projects are lost when the Space restarts or rebuilds, so download your MP4s.
+
+1. On https://huggingface.co/new-space choose **Docker → Blank**, hardware **CPU basic (free)**, visibility **Private**.
+2. In the Space's **Files** tab, add the two files from `deploy/huggingface/` (`Dockerfile` and `README.md`, replacing the default README). The Dockerfile pulls this app from GitHub when it builds.
+3. In **Settings → Variables and secrets**, add secrets `ANTHROPIC_API_KEY`, `GEMINI_API_KEY`, `ELEVENLABS_API_KEY` and, optionally, `APP_PASSWORD`.
+4. Wait for the build (about 5–10 minutes), then open the app at `https://<your-username>-<space-name>.hf.space`.
+
+To update after new commits, use **Settings → Factory rebuild**.
+
 ## Deploy (Render)
 
 The repo has a Render Blueprint (`render.yaml` at the repo root) and a `Dockerfile` with Node, Chromium, Python/OpenCV and ffmpeg.
@@ -51,7 +62,7 @@ The repo has a Render Blueprint (`render.yaml` at the repo root) and a `Dockerfi
 2. Fill in `APP_PASSWORD` (anything you like: the site asks for user `admin` and this password), `GEMINI_API_KEY`, `ELEVENLABS_API_KEY` (optional: `ANTHROPIC_API_KEY`).
 3. Deploy. The first build takes a few minutes; the Rolodex demo project is created on first start.
 
-It uses the Starter plan with a 5 GB disk (about $7/month plus disk) so projects survive restarts. Render's free plan has no disk and 512 MB, so projects would vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
+Render asks for a card for Blueprints. It uses the Starter plan with a 5 GB disk (about $7/month plus disk) so projects survive restarts. Render's free plan has no disk and 512 MB, so projects would vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
 
 ## How it fits together
 
