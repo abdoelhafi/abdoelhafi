@@ -66,12 +66,13 @@ ${brandBlock(settings)}
 NARRATION (it is sent to ElevenLabs Eleven v4 in ONE request):
 - Exactly 8 lines, 120-150 spoken words in total, under 1,050 characters including tags (the user is on a free tier: about 10,000 characters a month).
 - Each line has a short voice direction "tag" in English (it becomes a square-bracket audio tag, e.g. "Intrigued, low, documentary narrator"). Tags are directions, not spoken.
-- Use ellipses "..." for pauses. No SSML, no stage directions inside the text, no emojis.
+- One tag per line, and the tags follow the story arc (e.g. "Intrigued, low, documentary narrator" -> "Reveal, a little smile" -> "Calm, storytelling" -> "Playful, building" -> "Warm, emphatic" -> "Slower, a touch of loss" -> "Knowing, conversational" -> "Quiet, satisfying close").
+- Short sentences, one idea per sentence. Use ellipses "..." at the dramatic beats ("In the 1980s...", "And your network... was your value"). No SSML, no stage directions inside the text, no emojis.
 - Line 1 is the hook and is spoken from frame 1. Arc: hook question -> reveal -> origin -> how it became big -> the human meaning -> the loss/twist -> today's relatable problem -> quiet close that bridges to ${settings.brand.name}.
 - Only facts from the idea and its sources. Say "about"/"estimated" for estimates. Never invent numbers.
 
 ON-SCREEN TEXT (the user insists on minimal text):
-- "hookText": the hook line on screen in frame 1, at most 9 words (use \\n for a line break).
+- "hookText": the hook line on screen in frame 1, at most 7 words (use \\n for a line break). It must NOT repeat the first narration line word for word: it adds the mystery or the stakes (e.g. narration "In the 1980s the most powerful object on a desk wasn't the phone", hook text "Worth more than a salary").
 - "punchWords": at most 2 single words or numbers shown later (e.g. "ROLODEX", "1956"), each with the exact narration words they land on ("cue").
 
 SCENES: 6-8 scenes. Each scene starts on a spoken key phrase: "cue" must be copied EXACTLY from the narration text (2-4 consecutive words). The first scene's cue is the first words of line 1.
@@ -102,14 +103,21 @@ ${TIMELINE_DOC}
 A finished timeline for the Rolodex video (it uses pieces from its own library; your library is different):
 ${ROLODEX_TIMELINE}
 
-Rules:
+Rules (learned from the Rolodex video, which the user loved):
 - Use ONLY piece names from the library given. Never invent a piece. If an asset is missing, use a drawn background, a shape, text or an effect instead.
 - Times: use "@words" cues copied exactly from the word list, so cuts land on the spoken words. Scene 1 starts at 0.
 - Total duration = the narration duration given (add ~1.5 s at the end for the logo to settle).
-- On-screen text: only the hook text in scene 1 and the punch words; nothing else.
-- Every scene has motion all the time (a loop on the hero, a slow camera push, something entering on key words).
-- Size pieces from their aspect ratio: a hero 600-900 px wide; props 200-400 px. Keep inside x 80..1000, y 250..1700 (pieces entering from off-screen are fine).
-- The brand (${settings.brand.name}) appears only in the last scene${settings.brand.showLogo ? ' (the "logo" effect near y 1760)' : ' (no logo)'}.
+- On-screen text: only the hook text in scene 1 and the punch words; nothing else. The narration carries the story.
+- Alternate dark and light scenes so every cut reads as a cut (e.g. navy hook -> warm office -> cream -> dark stage -> cream -> navy -> cream ending). Set background colors to make this happen.
+- HOOK (scene 1): elements are already mid-motion on frame 0 (sliding in, popping), with a conflict (e.g. a tug of war) and debris (a "burst" of small pieces flying and falling). End the hook on a hit (a "shake" action + camera shake) right before the first cut. The hero object is about 60% of the frame width, centred slightly below the middle (y about 1000). The hook text strip sits in the top 12-16% (y 230-310).
+- REVEAL: start a scene zoomed about 3x on the object just named (camera "from" scale 3.2, "origin" on that object), then pull back over about 1.5 s to show the whole scene.
+- STAMP the key word or number exactly on its spoken cue (text style "stamp", enter "stamp").
+- LISTS in the narration ("A client. A favour. A deal") pop one element in per listed word, with "pop", two per cue staggered 0.1 s.
+- Something moves at every moment: one main action per narration beat, plus a slow camera push (to scale 1.08-1.12, ease "none", over the whole scene) when a scene is otherwise static.
+- Characters are whole figures: main characters 50-60% of the frame height; secondary figures at least 450 px tall. Give them life: "origin": "bottom" with "sway" (amount 2) or "breathe", a "jump"/"rotate" action on their key word, and an exit ("wind", "fly-*") when the story moves on. Never leave a hero static for a whole scene.
+- SAFE ZONES (TikTok/Reels UI covers them): keep faces, text and key objects out of the bottom 15% (y > 1630) and the right 12% (x > 950) and above y 200. Backgrounds, floors and debris may extend there.
+- Size pieces from their aspect ratio: hero objects 600-900 px wide; props 200-400 px.
+- The brand (${settings.brand.name}) appears only in the last scene${settings.brand.showLogo ? ': the "logo" effect about 420 px wide near y 1560, entering at least 3.5 s before the end' : ' (no logo)'}.
 Return ONLY the timeline JSON.`;
 
   const lib = Object.entries(library).map(([name, p]) => `${name} (${p.kind || 'piece'}, ${p.w}x${p.h}${p.label ? `, ${p.label}` : ''})`).join('\n');

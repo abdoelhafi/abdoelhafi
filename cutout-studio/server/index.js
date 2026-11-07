@@ -179,7 +179,7 @@ app.post('/api/projects/:id/assets/:assetId/recut', h(async (req, res) => {
   const a = findAsset(p, req.params.assetId);
   const up = a.uploads.find((u) => u.file === req.body.file) || a.uploads[a.uploads.length - 1];
   if (!up) throw bad('Nothing uploaded yet');
-  res.json(await cutUpload(p.id, a.id, up.file, up.variant, { method: req.body.method, threshold: req.body.threshold }));
+  res.json(await cutUpload(p.id, a.id, up.file, up.variant, { method: req.body.method, threshold: req.body.threshold, autoRepaint: req.body.autoRepaint !== false }));
 }));
 
 async function ingestImage(id, assetId, variant, write, ext, extra = {}) {
@@ -191,7 +191,7 @@ async function ingestImage(id, assetId, variant, write, ext, extra = {}) {
   return cutUpload(id, assetId, file, variant, {});
 }
 
-async function cutUpload(id, assetId, file, variant, { method = 'auto', threshold = 30 }) {
+async function cutUpload(id, assetId, file, variant, { method = 'auto', threshold = 30, autoRepaint = true }) {
   const p = store.load(id);
   const a = findAsset(p, assetId);
   const kind = a.kind === 'background' ? 'background' : variant === 'split' ? 'split' : a.kind;
@@ -242,6 +242,28 @@ async function cutUpload(id, assetId, file, variant, { method = 'auto', threshol
     qa.status = r.checks.some((c) => c.level === 'error') ? 'needs-fix' : 'ok';
   });
   fs.rmSync(tmp, { recursive: true, force: true });
+
+  // Fix Gemini's brick-red skin on split hands/legs in code instead of asking for a new image.
+  if (kind === 'split' && autoRepaint) {
+    const reds = updated.pieces.filter((x) => x.assetId === assetId && x.variant === 'split' && x.flags?.includes('red_skin'));
+    if (reds.length) {
+      const ref = updated.pieces.find((x) => x.assetId === assetId && x.variant === 'full' && x.use !== false);
+      for (const x of reds) {
+        const args = ['--piece', projectDir(id, 'pieces', x.file)];
+        if (ref) args.push('--ref', projectDir(id, 'pieces', ref.file));
+        x.repainted = await py('repaint.py', args).catch((e) => ({ ok: false, error: e.message }));
+      }
+      return withUrls(store.update(id, (q) => {
+        for (const x of reds) {
+          const y = q.pieces.find((z) => z.file === x.file);
+          if (!y || !x.repainted?.ok) continue;
+          y.flags = y.flags.filter((f) => f !== 'red_skin'); y.repainted = x.repainted; y.v = Date.now();
+        }
+        const up = findAsset(q, assetId).uploads.find((u) => u.file === file);
+        if (up) up.checks = up.checks.map((c) => (c.code === 'red_skin' ? { ...c, level: 'info', message: `Red skin on ${reds.map((r) => r.name).join(', ')} was repainted automatically. If that red was clothing, untick “fix red skin” and press Re-cut.`, fix: '' } : c));
+      }));
+    }
+  }
   return withUrls(updated);
 }
 

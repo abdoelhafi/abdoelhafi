@@ -27,7 +27,9 @@ Cut scenes on the spoken key words. Words must be copied exactly from the narrat
 
 ## Coordinates
 
-`x`, `y` = centre of the element in stage pixels (0..1080, 0..1920). `w` = width in pixels; the height follows the image's aspect ratio. Keep important things inside x 80..1000 and y 250..1700 (TikTok/Reels UI covers the edges). Elements are layered in list order (later = on top), or with `z`.
+`x`, `y` = centre of the element in stage pixels (0..1080, 0..1920). `w` = width in pixels; the height follows the image's aspect ratio. Elements are layered in list order (later = on top), or with `z`.
+
+**Safe zones:** the TikTok/Reels UI covers the bottom ~15% (captions, buttons: y > 1630), the right ~12% (icons: x > 950) and the very top (y < 200). Keep faces, text and key objects inside x 80..950, y 200..1630. Backgrounds, floors, debris and pieces entering from off-screen may cross them. The app warns when text or a piece's centre falls in these zones.
 
 ## Scene
 
@@ -95,8 +97,10 @@ Added automatically: a whoosh on every scene cut and slide/fly, a pop for pop/gr
 
 ## What makes it work
 
-- Frame 1 has motion, conflict and a mystery object. The narration starts on frame 1: no intro, no logo.
-- Each scene has one clear idea and something moving at all times (a loop on the hero, a slow camera push).
-- Cut on the key word, with the visual change landing on that word.
-- Big readable pieces: a hero is typically 600–900 px wide; props 200–400 px.
+- Frame 1 has motion, conflict and a mystery object, with elements already mid-motion. The narration starts on frame 1: no intro, no logo. End the hook on a hit (clack + small shake) right before the first cut.
+- Alternate dark and light scenes so every cut reads as a cut.
+- Reveal by starting ~3x zoomed on the object and pulling back over ~1.5 s.
+- Each scene has one clear idea, one main action per narration beat, and something moving at all times (a loop on the hero, a slow camera push to 1.08–1.12).
+- Cut and stamp on the key word, with the visual change landing on that word. Pop listed things in on each listed word.
+- Big readable pieces: a hero object ~60% of the frame width; main characters 50–60% of the frame height; secondary figures at least 450 px tall; props 200–400 px.
 - The brand appears only at the very end.

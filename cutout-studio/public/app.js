@@ -277,6 +277,7 @@ function uploadResult(a, u) {
       <ul class="checks">${(u.checks || []).map((c) => `<li class="${c.level}">${esc(c.message)}${c.fix ? `<div class="fix"><button class="btn small" data-copytext="${esc(c.fix)}">Copy fix prompt</button></div>` : ''}</li>`).join('') || '<li class="info">No problems found.</li>'}</ul>
       ${a.kind !== 'background' ? `<div class="toolbar"><select data-method><option value="auto">colour distance</option><option value="grey" ${u.method === 'grey' ? 'selected' : ''}>grey range</option></select>
         <label class="row">threshold <input type="number" data-thr value="${u.threshold || 30}" min="5" max="80" style="width:64px"></label>
+        ${u.variant === 'split' ? '<label class="row"><input type="checkbox" data-autofix checked> fix red skin</label>' : ''}
         <button class="btn small" data-recut="${esc(a.id)}" data-file="${esc(u.file)}">Re-cut</button></div>` : ''}
     </div></div>`;
 }
@@ -327,7 +328,7 @@ function wireAssets(el) {
   })));
   $$('[data-recut]', el).forEach((b) => (b.onclick = () => act(b, async () => {
     const box = b.closest('.toolbar');
-    rerender(await api(`/api/projects/${p.id}/assets/${b.dataset.recut}/recut`, { body: { file: b.dataset.file, method: $('[data-method]', box).value, threshold: +$('[data-thr]', box).value } }));
+    rerender(await api(`/api/projects/${p.id}/assets/${b.dataset.recut}/recut`, { body: { file: b.dataset.file, method: $('[data-method]', box).value, threshold: +$('[data-thr]', box).value, autoRepaint: $('[data-autofix]', box)?.checked ?? true } }));
   })));
   $$('[data-rename]', el).forEach((i) => (i.onchange = () => act(null, async () => rerender(await api(`/api/projects/${p.id}/pieces/${encodeURIComponent(i.dataset.rename)}`, { method: 'PATCH', body: { name: i.value } }))).catch(() => assetsPanel())));
   $$('[data-use]', el).forEach((c) => (c.onchange = async () => rerender(await api(`/api/projects/${p.id}/pieces/${encodeURIComponent(c.dataset.use)}`, { method: 'PATCH', body: { use: c.checked } }))));

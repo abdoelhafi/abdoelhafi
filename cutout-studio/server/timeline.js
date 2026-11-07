@@ -108,6 +108,13 @@ export function lintTimeline(T, library) {
       if (e.piece && !library[e.piece]) issues.push(`${S.id}: piece "${e.piece}" is missing`);
       if (e.effect === 'burst' && e.piece && !library[e.piece]) issues.push(`${S.id}: burst piece "${e.piece}" is missing (plain paper shapes will be used)`);
       if (e.text && String(e.text).length > 60) issues.push(`${S.id}: on-screen text "${String(e.text).slice(0, 30)}..." is long; keep text minimal`);
+      // TikTok/Reels UI covers the bottom 15%, the right 12% and the very top. Off-screen entrances are fine.
+      const inFrame = e.x >= 0 && e.x <= 1080 && e.y >= 0 && e.y <= 1920;
+      const key = e.text != null || e.piece || e.effect === 'logo' || e.effect === 'contact';
+      if (key && inFrame && (e.y > 1630 || e.x > 950 || e.y < 200)) {
+        const what = e.text != null ? `text "${String(e.text).slice(0, 20)}"` : e.piece ? `piece "${e.piece}"` : e.effect;
+        issues.push(`${S.id}: ${what} is centred in a TikTok/Reels UI zone (x ${Math.round(e.x)}, y ${Math.round(e.y)}); keep key things inside x 80..950, y 200..1630`);
+      }
     }
   }
   return issues;
