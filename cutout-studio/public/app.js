@@ -80,9 +80,20 @@ async function openProject(id, step) {
   location.hash = id;
   $('#empty').hidden = true; $('#workspace').hidden = false;
   $('#projectName').value = state.project.name;
+  $('#exportProject').href = `/api/projects/${encodeURIComponent(id)}/export`;
   $$('#projects a').forEach((a) => a.classList.toggle('active', a.dataset.id === id));
   go(step || state.project.step || 'ideas');
 }
+
+$('#importProject').onclick = () => $('#importFile').click();
+$('#importFile').onchange = (e) => act($('#importProject'), async () => {
+  const file = e.target.files[0]; if (!file) return;
+  const fd = new FormData(); fd.append('file', file);
+  const r = await api('/api/projects/import', { body: fd });
+  e.target.value = '';
+  await refreshProjects(); await openProject(r.project.id);
+  toast(`Imported “${r.project.name}”${r.settingsRestored ? ' (brand settings restored too)' : ''}`);
+});
 
 $('#projectName').onchange = async (e) => {
   state.project = await api(`/api/projects/${state.project.id}`, { method: 'PATCH', body: { name: e.target.value } });
@@ -402,6 +413,7 @@ function videoPanel() {
           <div class="toolbar"><h3 class="grow">Render</h3>
             <button id="stillsBtn" class="btn">Check 20 stills</button>
             <button id="renderBtn" class="btn primary">Render MP4</button></div>
+          ${renderModeBox()}
           ${chk?.problems?.length ? `<ul class="problems">${chk.problems.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}
           <div id="renderBox"></div>
           <div id="stillsBox"></div>
@@ -433,8 +445,24 @@ function videoPanel() {
     state.stills = r; showStills();
   });
   $('#renderBtn', el).onclick = (e) => act(e.currentTarget, async () => { await api(`/api/projects/${p.id}/render`, { body: {} }); pollRender(); });
+  $$('[name=renderMode]', el).forEach((r) => (r.onchange = async () => {
+    const s = await api('/api/settings/render-mode', { method: 'PUT', body: { mode: r.value } });
+    state.status.settings = s; videoPanel();
+    toast(r.value === 'github' ? 'Videos will render on GitHub Actions' : 'Videos will render on this server');
+  }));
   if (state.stills) showStills();
   pollRender(true);
+}
+
+function renderModeBox() {
+  const st = state.status, mode = st.settings?.renderMode || 'instance', g = st.github || { ready: false, missing: [] };
+  return `<div class="render-mode">
+    <span class="lbl">Render on</span>
+    <label class="row"><input type="radio" name="renderMode" value="instance" ${mode !== 'github' ? 'checked' : ''}> This server</label>
+    <label class="row"><input type="radio" name="renderMode" value="github" ${mode === 'github' ? 'checked' : ''} ${g.ready ? '' : 'disabled'}> GitHub Actions (free, full quality)</label>
+    ${!g.ready ? `<span class="hint" style="margin:0">GitHub rendering needs ${esc(g.missing.join(', '))} (see the README).</span>` : ''}
+    ${st.lowMemory && mode !== 'github' ? '<span class="hint" style="margin:0;color:var(--warn)">This server has little memory: stills and renders may fail here. GitHub Actions is safer.</span>' : ''}
+  </div>`;
 }
 
 function showStills() {
@@ -450,9 +478,9 @@ function pollRender(quietIfIdle) {
     const st = await api(`/api/projects/${p.id}/render`).catch(() => null);
     const box = $('#renderBox'); if (!box || !st) return;
     if (st.state === 'idle') { if (!quietIfIdle) box.innerHTML = ''; clearInterval(state.renderTimer); return; }
-    if (st.state === 'running') {
+    if (st.state === 'running' || st.state === 'queued') {
       const pct = st.frames ? Math.round((st.frame / st.frames) * 100) : 0;
-      box.innerHTML = `<p class="hint">${esc(st.message)}${st.frames ? ` · frame ${st.frame} / ${st.frames}` : ''}</p><div class="progress"><i style="width:${pct}%"></i></div>`;
+      box.innerHTML = `<p class="hint">${esc(st.message)}${st.frames ? ` · frame ${st.frame} / ${st.frames}` : ''}${st.runUrl ? ` · <a href="${esc(st.runUrl)}" target="_blank" rel="noopener">GitHub run</a>` : ''}</p><div class="progress"><i style="width:${pct}%"></i></div>`;
       $('#renderBtn').disabled = true;
       return;
     }

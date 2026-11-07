@@ -1,0 +1,72 @@
+# Renders a Cut-Out Studio video at full quality when the app asks for it (Render MP4 → "GitHub Actions").
+# The app sends only its URL and a job id; the shared secret comes from the repository secret RENDER_SHARED_SECRET.
+name: render-video
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_url:
+        description: Base URL of the Cut-Out Studio app
+        required: true
+      job_id:
+        description: Render job id created by the app
+        required: true
+      app_ref:
+        description: Branch with the app code
+        required: false
+        default: ccr-18ed63bb-3wocck
+
+run-name: Render video ${{ inputs.job_id }}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-${{ inputs.job_id }}
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: cutout-studio
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.app_ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: cutout-studio/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
+
+      - name: Install app dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          pip install -r requirements.txt
+
+      - name: Render and send the video back to the app
+        env:
+          APP_URL: ${{ inputs.app_url }}
+          JOB_ID: ${{ inputs.job_id }}
+          RENDER_SHARED_SECRET: ${{ secrets.RENDER_SHARED_SECRET }}
+        run: node scripts/github-render.js
+
+      # only if sending it back failed (e.g. the app restarted): keep the MP4 for 3 days
+      - name: Keep the video as an artifact
+        if: failure() && hashFiles('cutout-studio/out/video.mp4') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: video-${{ inputs.job_id }}
+          path: cutout-studio/out/video.mp4
+          retention-days: 3

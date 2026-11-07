@@ -57,7 +57,8 @@ body.preview #controls{display:flex}
   const q = new URLSearchParams(location.search);
   const project = q.get('project');
   const mode = q.get('mode') || 'preview';
-  const T = await (await fetch(`/api/projects/${project}/timeline/resolved`)).json();
+  // ?timeline=<url> plays a bundled timeline (GitHub Actions renderer); otherwise the project's live timeline
+  const T = await (await fetch(q.get('timeline') || `/api/projects/${project}/timeline/resolved`)).json();
   if (T.error) { document.body.textContent = T.error; return; }
   await document.fonts.load('76px News').catch(() => {});
   const out = CutoutEngine.build(T);

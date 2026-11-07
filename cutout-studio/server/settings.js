@@ -27,6 +27,7 @@ export const DEFAULT_SETTINGS = {
     palette: { navy: '#24324F', mustard: '#E1A73A', brick: '#C2502F', cream: '#F1E6CC', ink: '#1B2238' },
   },
   voice: { stability: 0.5, similarity_boost: 0.8, style: 0.3, use_speaker_boost: true },
+  renderMode: 'instance', // 'instance' (this server) or 'github' (GitHub Actions)
 };
 
 export function getSettings() {

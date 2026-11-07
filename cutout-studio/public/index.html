@@ -12,6 +12,7 @@
 <aside id="side">
   <div class="brand"><span class="logo-dot"></span>Cut-Out Studio</div>
   <button id="newProject" class="btn primary wide">+ New video</button>
+  <button id="importProject" class="btn wide">Import a video…</button><input id="importFile" type="file" accept=".tgz,.gz,application/gzip" hidden>
   <nav id="projects"></nav>
   <div class="side-foot">
     <div id="status" class="status"></div>
@@ -29,6 +30,7 @@
   <div id="workspace" hidden>
     <header class="ws-head">
       <input id="projectName" class="title-input" aria-label="Project name">
+      <a id="exportProject" class="btn small" href="#" download title="Download the whole project (ideas, script, images, voice, timeline) as one file">Export</a>
       <button id="deleteProject" class="btn ghost small">Delete</button>
     </header>
     <ol id="steps" class="steps">

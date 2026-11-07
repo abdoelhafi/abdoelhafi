@@ -166,3 +166,7 @@ fieldset{border:1px solid var(--rule);border-radius:8px;padding:10px 12px}
   .line .tagin{grid-column:2}
   .line textarea{grid-column:2}
 }
+.render-mode{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;margin:10px 0 4px;padding:10px 12px;border:1px dashed var(--rule);border-radius:8px}
+.render-mode .hint{flex-basis:100%}
+a.btn{text-decoration:none;color:inherit;display:inline-block}
+#side #importProject{background:transparent}

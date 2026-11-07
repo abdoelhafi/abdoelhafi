@@ -65,6 +65,31 @@ The repo has a Render Blueprint (`render.yaml` at the repo root) and a `Dockerfi
 
 Render asks for a card for Blueprints. It uses the Standard plan (2 GB, about $25/month) with a 5 GB disk, because rendering needs more than the 512 MB of the Free and Starter plans. On a 512 MB instance set `LOW_MEMORY=1`: every step works except the MP4 render, and without a disk projects vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
 
+## Render on GitHub Actions (free, full quality)
+
+Rendering needs about 600 MB to 1 GB of memory, more than a free 512 MB host has. In the Video step, **Render on: GitHub Actions** sends the job to GitHub instead. The public repository gets free runners with 16 GB of memory, so the MP4 is rendered at full 1080×1920 quality and sent back into the app (about 10 minutes). **This server** keeps rendering on the app's own machine, so you can switch back at any time.
+
+How it works: the app packs the project (timeline, pieces, voice) and starts the `render-video` workflow with only its URL and a job id. The runner downloads the pack, renders, reports progress (shown in the app with a link to the GitHub run) and uploads the MP4. Every call carries a shared secret, so the public Actions logs reveal nothing usable. If the upload fails (e.g. the app restarted), the MP4 is kept on the GitHub run as an artifact for 3 days.
+
+One-time setup:
+
+1. **Workflow on the default branch.** GitHub only runs manual workflows that exist on the default branch (`main`). Merge `.github/workflows/render-video.yml` into `main` (it renders the app code from the `ccr-18ed63bb-3wocck` branch; change `GITHUB_APP_REF` if the app moves).
+2. **A shared secret.** Make up a long random string. In GitHub: repository **Settings → Secrets and variables → Actions → New repository secret**, name `RENDER_SHARED_SECRET`.
+3. **A GitHub token.** https://github.com/settings/personal-access-tokens/new → *Only select repositories*: `abdoelhafi/abdoelhafi` → *Repository permissions*: **Actions: Read and write**.
+4. **On the app's host** (e.g. Render → Environment), add `GITHUB_TOKEN` (the token) and `RENDER_SHARED_SECRET` (the same string). On Render the app's public URL is detected automatically; elsewhere set `PUBLIC_URL`.
+5. In the app, Video step → **Render on: GitHub Actions**.
+
+| Setting | Default |
+|---|---|
+| `GITHUB_REPO` | `abdoelhafi/abdoelhafi` |
+| `GITHUB_WORKFLOW` | `render-video.yml` |
+| `GITHUB_REF` | the repository's default branch (where the workflow file lives) |
+| `GITHUB_APP_REF` | `ccr-18ed63bb-3wocck` (the app code the runner uses) |
+
+## Export and import
+
+Free hosts wipe their disk on every restart (Render's free plan: after about 15 minutes without visitors, and on every deploy). **Export** (next to the project title) downloads the whole project as one `.cutout.tgz` file: ideas, script, uploads and pieces, voice, timeline, and your brand settings. Renders are left out to keep the file small, so download MP4s separately; add `?renders=1` to the export link to include them. **Import a video…** in the sidebar brings it back, on the same server after a restart or on another one. Brand settings are restored only if the server has none yet.
+
 ## How it fits together
 
 ```

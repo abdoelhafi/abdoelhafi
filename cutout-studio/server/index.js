@@ -13,9 +13,19 @@ import { generateImage } from './gemini-image.js';
 import { py, probeDuration } from './proc.js';
 import { wordsFromAlignment, resolveTimeline, lintTimeline } from './timeline.js';
 import { stills, startRender, renderStatus } from './render.js';
+import * as github from './github.js';
+import { exportProject, importProject } from './transfer.js';
 
 const app = express();
 app.get('/healthz', (req, res) => res.send('ok')); // health check for hosts, before the password
+
+// Endpoints the GitHub Actions renderer calls. They sit before the password and check the shared secret instead.
+const runnerAuth = (req, res, next) => (github.checkSecret(req) ? next() : res.status(403).json({ error: 'bad render secret' }));
+const hr = (fn) => (req, res) => Promise.resolve(fn(req, res)).catch((e) => res.status(e.status || 500).json({ error: e.message }));
+app.get('/api/render-jobs/:job/bundle', runnerAuth, hr((req, res) => res.sendFile(github.bundlePath(req.params.job))));
+app.post('/api/render-jobs/:job/progress', runnerAuth, express.json(), hr((req, res) => { github.progress(req.params.job, req.body || {}); res.json({ ok: true }); }));
+app.post('/api/render-jobs/:job/result', runnerAuth, hr(async (req, res) => res.json(await github.receiveResult(req.params.job, req))));
+app.post('/api/render-jobs/:job/fail', runnerAuth, express.json(), hr((req, res) => { github.fail(req.params.job, req.body?.message); res.json({ ok: true }); }));
 
 // Optional password for a deployed copy (APP_PASSWORD). The renderer's own browser on localhost is let through.
 if (process.env.APP_PASSWORD) {
@@ -43,11 +53,15 @@ const fileUrl = (id, ...p) => `/api/projects/${id}/files/${p.map(encodeURICompon
 
 // ------------------------------------------------------------------ status + settings
 app.get('/api/status', h(async (req, res) => {
-  res.json({ ...providerInfo(), python: config.python, settings: getSettings() });
+  res.json({ ...providerInfo(), python: config.python, settings: getSettings(), github: github.githubStatus(), lowMemory: process.env.LOW_MEMORY === '1' });
 }));
 app.get('/api/settings', (req, res) => res.json(getSettings()));
 app.put('/api/settings', (req, res) => res.json(saveSettings(req.body)));
 app.post('/api/settings/reset', (req, res) => res.json(saveSettings(DEFAULT_SETTINGS)));
+app.put('/api/settings/render-mode', (req, res) => {
+  const mode = req.body.mode === 'github' ? 'github' : 'instance';
+  res.json(saveSettings({ ...getSettings(), renderMode: mode }));
+});
 
 // ------------------------------------------------------------------ projects
 app.get('/api/projects', (req, res) => res.json(store.listProjects()));
@@ -58,6 +72,12 @@ app.patch('/api/projects/:id', (req, res) => {
   res.json(withUrls(store.update(req.params.id, (p) => { for (const k of allowed) if (k in req.body) p[k] = req.body[k]; })));
 });
 app.delete('/api/projects/:id', (req, res) => { store.remove(req.params.id); res.json({ ok: true }); });
+app.get('/api/projects/:id/export', (req, res) => exportProject(req.params.id, res, { renders: req.query.renders === '1' }));
+app.post('/api/projects/import', upload.single('file'), h(async (req, res) => {
+  if (!req.file) throw bad('Choose a .cutout.tgz file to import.');
+  const r = await importProject(req.file.path);
+  res.json({ project: withUrls(r.project), settingsRestored: r.settingsRestored });
+}));
 
 function withUrls(p) {
   return {
@@ -414,19 +434,23 @@ function checkTimeline(p, tl) {
   return { problems: [...problems, ...lintTimeline(timeline, library(p))], duration: timeline.duration, scenes: timeline.scenes.map((s) => ({ id: s.id, start: s.start, end: s.end })) };
 }
 
-app.get('/api/projects/:id/timeline/resolved', h(async (req, res) => {
-  const p = store.load(req.params.id);
-  if (!p.timeline) return res.json({ error: 'No timeline yet.' });
+function resolvedTimeline(p) {
   const words = p.voice ? wordsFromAlignment(readAlignment(p)) : [];
   const { timeline, problems } = resolveTimeline(p.timeline, { words, duration: p.voice ? p.voice.duration + 1.5 : null });
   const s = getSettings();
-  res.json({
+  return {
     ...timeline, problems,
     library: library(p),
     palette: { ...(s.style.palette || {}), ...(timeline.palette || {}) },
     brand: { name: s.brand.name, logoSvg: s.brand.showLogo ? s.brand.logoSvg : '' },
     audio: p.voice ? fileUrl(p.id, 'vo', p.voice.file) : null,
-  });
+  };
+}
+
+app.get('/api/projects/:id/timeline/resolved', h(async (req, res) => {
+  const p = store.load(req.params.id);
+  if (!p.timeline) return res.json({ error: 'No timeline yet.' });
+  res.json(resolvedTimeline(p));
 }));
 
 app.post('/api/projects/:id/stills', h(async (req, res) => {
@@ -439,7 +463,10 @@ app.post('/api/projects/:id/stills', h(async (req, res) => {
 app.post('/api/projects/:id/render', h(async (req, res) => {
   const p = store.load(req.params.id);
   if (!p.timeline) throw bad('No timeline yet.');
-  res.json(startRender(baseUrl(), p.id, { voicePath: p.voice ? projectDir(p.id, 'vo', p.voice.file) : null }));
+  const voicePath = p.voice ? projectDir(p.id, 'vo', p.voice.file) : null;
+  const mode = req.body.mode || getSettings().renderMode || 'instance';
+  if (mode === 'github') return res.json(await github.startGithubRender(p.id, resolvedTimeline(p), voicePath));
+  res.json(startRender(baseUrl(), p.id, { voicePath }));
 }));
 
 app.get('/api/projects/:id/render', h(async (req, res) => {
