@@ -7,8 +7,8 @@ services:
     rootDir: cutout-studio
     dockerfilePath: ./Dockerfile
     dockerContext: .
-    # Rendering runs a real Chromium: "starter" (512 MB) works for one render at a time; "standard" is faster.
-    plan: starter
+    # Rendering a video needs about 600 MB-1 GB: "standard" (2 GB). Free and "starter" have 512 MB (set LOW_MEMORY=1; no MP4 render).
+    plan: standard
     healthCheckPath: /healthz
     disk:
       name: cutout-data

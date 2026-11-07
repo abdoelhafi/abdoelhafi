@@ -63,7 +63,7 @@ The repo has a Render Blueprint (`render.yaml` at the repo root) and a `Dockerfi
 2. Fill in `APP_PASSWORD` (anything you like: the site asks for user `admin` and this password), `GEMINI_API_KEY`, `ELEVENLABS_API_KEY` (optional: `ANTHROPIC_API_KEY`).
 3. Deploy. The first build takes a few minutes; the Rolodex demo project is created on first start.
 
-Render asks for a card for Blueprints. It uses the Starter plan with a 5 GB disk (about $7/month plus disk) so projects survive restarts. Render's free plan has no disk and 512 MB, so projects would vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
+Render asks for a card for Blueprints. It uses the Standard plan (2 GB, about $25/month) with a 5 GB disk, because rendering needs more than the 512 MB of the Free and Starter plans. On a 512 MB instance set `LOW_MEMORY=1`: every step works except the MP4 render, and without a disk projects vanish on every restart. Any Docker host works the same way: build `cutout-studio/`, mount a volume on `/data`, set the env vars.
 
 ## How it fits together
 
